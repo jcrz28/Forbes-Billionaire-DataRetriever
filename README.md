@@ -6,5 +6,5 @@ ________________________________________________________________________________
 ### Status
 Project is complete.
 
-### Sources
+### Source
   - https://www.kaggle.com/roysouravcu/forbes-billionaires-of-2021
