@@ -5,3 +5,6 @@ A program that uses singly linked list as the main method of inserting, deleting
 __________________________________________________________________________________________________________________
 ### Status
 Project is complete.
+
+### Sources
+  - https://www.kaggle.com/roysouravcu/forbes-billionaires-of-2021
