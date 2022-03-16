@@ -121,107 +121,70 @@ void Database::insertNewData(string NAME, double NETWORTH, string COUNTRY,
 
 
 /*Checks the task and field to either do search or remove.*/
-void Database::string_task(string task, string field, string data) {
+void Database::string_task(string task, string field, string input_data) {
 	if (task == "delete") {
-		if (field == "name") 
-			remove_word(field, data); 
-
-		else if (field == "country") 
-			remove_word(field, data); 
-
-		else if (field == "source")  
-			remove_word(field, data); 
-
-		else if (field == "industry")  
-			remove_word(field, data); 
-
+		remove_word(field, input_data); 
 	}
 	else if (task == "search") {
-		if (field == "name")  
-			filter_word(field, data); 
-
-		else if (field == "country")  
-			filter_word(field, data); 
-
-		else if (field == "source")  
-			filter_word(field, data); 
-
-		else if (field == "industry")  
-			filter_word(field, data); 
+		filter_word(field, input_data); 
 	}
 }
 
 void Database::num_task(string task, string field, double num) {
 	if (task == "delete") {
-		if (field == "networth")  
-			remove_num(field, num); 
-
-		else if (field == "rank")  
-			remove_num(field, num); 
-
-		else if (field == "age")  
-			remove_num(field, num); 
+		remove_num(field, num);
 	}
-
 	else if (task == "search") {
-		if (field == "networth")  
-			filter_num(field, num); 
-
-		else if (field == "rank")  
-			filter_num(field, num); 
-
-		else if (field == "age") 
-			filter_num(field, num); 
+		filter_num(field, num); 
 	}
 }
 
 
 /*Checks the field and returns the current value from the linked list.*/
 double Database::get_val(node* current, string field) {
-	if (field == "networth") 
+	if (field == "networth") {
 		return current->net_worth; 
-
-	else if (field == "rank")  
+	}
+	else if (field == "rank") {
 		return current->ranking; 
-
-	else if (field == "age")  
+	}
+	else if (field == "age"){ 
 		return current->age; 
-
+	}
 	else return 0;
 }
 
 
 /*Transform both strings to upper cases and checks if they are equal.*/
 bool Database::check_strings(string s1, string s2) {
-	string temp = s1;
-
-	transform(temp.begin(), temp.end(), temp.begin(), ::toupper);
+	transform(s1.begin(), s1.end(), s1.begin(), ::toupper);
 	transform(s2.begin(), s2.end(), s2.begin(), ::toupper);
 
-	if (temp == s2)
+	if (s1 == s2) {
 		return true;
+	}
 	return false;
 }
 
 /*Checks the field and performs case insensitivity match*/
-bool Database::check_case_insensitivity(node* current, string field, string data) {
+bool Database::check_case_insensitivity(node* current, string field, string input_data) {
 	if (field == "name") {
-		if (check_strings(current->name, data)) {
+		if (check_strings(current->name, input_data)) {
 			return true;
 		}
 	}
 	else if (field == "country") {
-		if (check_strings(current->country, data)) {
+		if (check_strings(current->country, input_data)) {
 			return true;
 		}
 	}
 	else if (field == "source") {
-		if (check_strings(current->source, data)) {
+		if (check_strings(current->source, input_data)) {
 			return true;
-		}
+		}	
 	}
 	else if (field == "industry") {
-		if (check_strings(current->industry, data)) {
+		if (check_strings(current->industry, input_data)) {
 			return true;
 		}
 	}
@@ -277,53 +240,40 @@ node* Database::remove_all(node* temp) {
 	return head;
 }
 
-void Database::remove_word(string field, string data) {
+void Database::remove_word(string field, string input_data) {
 	if (check_empty()) {
 		return;
 	}
 	bool flag = false;
 	node* current = head;
 
-	if (field == "name") {
-		while (current != NULL && current->next != NULL) {
-			if (head == current && check_case_insensitivity(current, field, data)) {
-				current = delete_beginning(head);
-				flag = true;
+	
+	while (current != NULL && current->next != NULL) {
+		if (head == current && check_case_insensitivity(current, field, input_data)) {
+			current = delete_beginning(head);
+			flag = true;
+
+			if (field == "name") {
 				break;
 			}
-			else if (check_case_insensitivity(current->next, field, data)) {
-				delete_positional_elements(current);
-				flag = true;
+		}
+		else if (check_case_insensitivity(current->next, field, input_data)) {
+			delete_positional_elements(current);
+			flag = true;
+
+			if (field == "name") {
 				break;
 			}
-			else {
-				current = current->next;
-			}
 		}
-		if (current != NULL && size == 1 && check_case_insensitivity(current, field, data)) {
-			delete_last_and_remaining_element(current);
-			flag = true;
+		else {
+			current = current->next;
 		}
 	}
-	else {
-		while (current != NULL && current->next != NULL) {
-			if (head == current && check_case_insensitivity(current, field, data)) {
-				current = delete_beginning(head);
-				flag = true;
-			}
-			else if (check_case_insensitivity(current->next, field, data)) {
-				delete_positional_elements(current);
-				flag = true;
-			}
-			else {
-				current = current->next;
-			}
-		}
-		if (current != NULL && size == 1 && check_case_insensitivity(current, field, data)) {
-			delete_last_and_remaining_element(current);
-			flag = true;
-		}
+	if (current != NULL && size == 1 && check_case_insensitivity(current, field, input_data)) {
+		delete_last_and_remaining_element(current);
+		flag = true;
 	}
+		
 	check_remove_flag(flag);
 }
 
@@ -364,19 +314,21 @@ void Database::trim(int num1, int  num2) {
 		cout << "\nAll data entries are deleted.\n\n";
 		return;
 	}
+
 	node* current = head;
 	int counter = 0;
 
 	while (current != NULL && current->next != NULL && counter != num2) {
-		if (num1 == 0) {
+		if (num1 == 0) { 
 			current = delete_beginning(head);
-		}
+		} 
 		else if (num2 > counter + 1 && counter + 1 >= num1) {
 			delete_positional_elements(current);
-		}
+		} 
 		else {
 			current = current->next;
 		}
+		
 		counter++;
 	}
 	if (size == 1 && counter == num2) {
@@ -404,29 +356,22 @@ void Database::update(node* current, bool& flag, int& counter) {
 	counter++;
 }
 
-bool Database::filter_word(string field, string data) {
+bool Database::filter_word(string field, string input_data) {
 	bool flag = false;
 	int counter = 0;
 	node* current = head;
 
-	if (field == "name") {
-		while (current != NULL) {
-			if (check_case_insensitivity(current, field, data)) {
-				update(current, flag, counter);
+	while (current != NULL) {					
+		if (check_case_insensitivity(current, field, input_data)) {
+			update(current, flag, counter);
+
+			if (field == "name") {
 				break;
 			}
-			current = current->next;
 		}
-	}
-	else {
-		while (current != NULL) {					
-			if (check_case_insensitivity(current, field, data)) {
-				update(current, flag, counter);
-			}
-			current = current->next;
-		}
-		
-	}
+		current = current->next;
+	}	
+	
 	return (check_search_flag(flag, counter));
 }
 
