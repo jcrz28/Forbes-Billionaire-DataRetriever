@@ -24,10 +24,8 @@ public:
 	string char_option_to_str_field_2(char option); 
 
 
-	void get_word(Database& access, string task, char option);
+	void get_input_data(Database& access, string task, char option);
 	
-	void get_num(Database& access, string task, char option);
-
 	/*Perform search range or trim function*/
 	void perform_range_task(Database& access, string task, string field, int num1, int num2);
 

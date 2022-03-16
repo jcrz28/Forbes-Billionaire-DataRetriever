@@ -7,57 +7,87 @@
 
 void prompt::all_fields() {
 	cout << "\na - Name\n";
+
 	cout << "\nb - Networth\n";
+
 	cout << "\nc - Country\n";
+
 	cout << "\nd - Source\n";
+
 	cout << "\ne - Rank\n";
+
 	cout << "\nf - Age\n";
+
 	cout << "\ng - Industry\n";
 }
 
 void prompt::num_fields() {
 	cout << "\na - Networth\n";
+
 	cout << "\nb - Rank\n";
+
 	cout << "\nc - Age\n";
 }
 
 string prompt::char_option_to_str_field(char option) {
-	if (option == 'a') return "name";
-	else if (option == 'b') return "networth";
-	else if (option == 'c') return "country";
-	else if (option == 'd') return "source";
-	else if (option == 'e') return "rank";
-	else if (option == 'f') return "age";
-	else if (option == 'g') return "industry";
-	else return "";
+	switch (option){
+	case 'a':
+		return "name";
+	
+	case 'b':
+		return "networth";
+
+	case 'c':
+		return "country";
+	
+	case 'd':
+		return "source";
+
+	case 'e':
+		return "rank";
+	
+	case 'f':
+		return "age";
+
+	case 'g':
+		return "industry";
+	
+	default:
+		return "";
+	}
+	
 }
 
 string prompt::char_option_to_str_field_2(char option) {
-	if (option == 'a') return "networth";
-	else if (option == 'b') return "rank";
-	else if (option == 'c') return "age";
-	else return "position";
+	switch (option){
+	case 'a':
+		return "networth";
+	
+	case 'b':
+		return "rank";
+
+	case 'c':
+		return "age";
+	
+	default:
+		return "position";
+	}
 }
 
-void prompt::get_word(Database& access, string task, char option) {
-	string data;
+void prompt::get_input_data(Database& access, string task, char option) {
+	string input_data;
 	string field = char_option_to_str_field(option);
 
 	cout << "Enter the " << field << " you want to " << task << ":";
 	cin.ignore();
-	getline(cin, data);
+	getline(cin, input_data);
 
-	access.string_task(task, field, data);
-}
-
-void prompt::get_num(Database& access, string task, char option) {
-	double num;
-	string field = char_option_to_str_field(option);
-
-	cout << "Enter the " << field << " you want to " << task << ":";
-	cin >> num;
-
-	access.num_task(task, field, num);
+	if (option == 'b' || option == 'e' || option == 'f'){
+		access.num_task(task, field, stod(input_data));
+	}
+	else{
+		access.string_task(task, field, input_data);
+	}
 }
 
 void prompt::perform_range_task(Database& access, string task, string field, int num1, int num2) {
@@ -142,38 +172,11 @@ void prompt::delete_entries(Database& access) {
 
 	cin >> option;
 
-	switch (option) {
-
-	case 'a':
-		get_word(access, task, option);
-		break;
-
-	case 'b':
-		get_num(access, task, option);
-		break;
-
-	case 'c':
-		get_word(access, task, option);
-		break;
-
-	case 'd':
-		get_word(access, task, option);
-		break;
-
-	case 'e':
-		get_num(access, task, option);
-		break;
-
-	case'f':
-		get_num(access, task, option);
-		break;
-	case 'g':
-		get_word(access, task, option);
-		break;
-
-	default:
+	if (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g'){
+		get_input_data(access, task, option);
+	}
+	else{
 		invalid_input_message();
-		break;
 	}
 }
 
@@ -187,40 +190,12 @@ void prompt::search_entries(Database& access) {
 	all_fields();
 
 	cin >> option;
-
-	switch (option) {
-
-	case 'a':
-		get_word(access, task, option);
-		break;
-
-	case 'b':
-		get_num(access, task, option);
-		break;
-
-	case 'c':
-		get_word(access, task, option);
-		break;
-
-	case 'd':
-		get_word(access, task, option);
-		break;
-
-	case 'e':
-		get_num(access, task, option);
-		break;
-
-	case 'f':
-		get_num(access, task, option);
-		break;
-
-	case 'g':
-		get_word(access, task, option);
-		break;
-
-	default:
+	
+	if (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g'){
+		get_input_data(access, task, option);
+	}
+	else{
 		invalid_input_message();
-		break;
 	}
 }
 
@@ -234,19 +209,12 @@ void prompt::search_range(Database& access) {
 	num_fields();
 
 	cin >> option;
-	switch (option) {
-	case'a':
+
+	if (option == 'a' || option == 'b' || option == 'c'){
 		get_interval(access, task, option, first_interval, second_interval);
-		break;
-	case 'b':
-		get_interval(access, task, option, first_interval, second_interval);
-		break;
-	case 'c':
-		get_interval(access, task, option, first_interval, second_interval);
-		break;
-	default:
+	}
+	else{
 		invalid_input_message();
-		break;
 	}
 }
 
@@ -258,22 +226,11 @@ void prompt::sort_entries(Database& access) {
 
 	cin >> option;
 
-	switch (option) {
-	case 'a':
+	if (option == 'a' || option == 'b' || option == 'c'){
 		choose_order(access, option);
-		break;
-
-	case 'b':
-		choose_order(access, option);
-		break;
-
-	case 'c':
-		choose_order(access, option);
-		break;
-
-	default:
+	}
+	else{
 		invalid_input_message();
-		break;
 	}
 }
 
@@ -282,23 +239,18 @@ void prompt::choose_order(Database& access, char option) {
 	char option2{};
 
 	cout << "Select the sorting order:\n";
+
 	cout << "\na - Ascending order\n";
+
 	cout << "\nb - Descending order\n";
 
 	cin >> option2;
 
-	switch (option2) {
-	case 'a':
+	if (option == 'a' || option == 'b' || option == 'c'){
 		perform_sorting(access, field, option2);
-		break;
-
-	case 'b':
-		perform_sorting(access, field, option2);
-		break;
-
-	default:
+	}
+	else{
 		invalid_input_message();
-		break;
 	}
 }
 
