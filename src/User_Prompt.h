@@ -2,12 +2,12 @@
 #ifndef USERPROMPT
 #define USERPROMPT
 
-#include "LinkedList_Database.h"
+#include "LinkedList.h"
 #include <iostream>
 
 using namespace std;
 
-class prompt {
+class Prompt {
 public:
 
 	/*Shows the fields of the database*/
@@ -24,14 +24,9 @@ public:
 	string char_option_to_str_field_2(char option); 
 
 
-	void get_input_data(Database& access, string task, char option);
+	void get_input_data(LinkedList& access, string task, char option);
 	
-	/*Perform search range or trim function*/
-	void perform_range_task(Database& access, string task, string field, int num1, int num2);
-
-	bool get_interval(Database& access, string task, char option, int& num1, int& num2);
-
-	void choose_order(Database& access, char option);
+	void choose_order(LinkedList& access, char option);
 
 	void invalid_input_message();
 
@@ -39,19 +34,15 @@ public:
 	/*Main user options*/
 
 
-	void print_entries(Database& access);
+	void print_entries(LinkedList& access);
 
-	void add_entries(Database& access);
+	void add_entries(LinkedList& access);
 
-	void delete_entries(Database& access);
+	void delete_entries(LinkedList& access);
 
-	void search_entries(Database& access);
+	void search_entries(LinkedList& access);
 
-	void search_range(Database& access);
-
-	void sort_entries(Database& access);
-
-	void trim_entries(Database& access);
+	void sort_entries(LinkedList& access);
 
 	void exit_message();
 

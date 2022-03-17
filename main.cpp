@@ -1,8 +1,8 @@
 // To run the program: 
-// g++  main.cpp src/LinkedList_Database.cpp src/Bubble_Sort.cpp src/User_Prompt.cpp
+// g++  main.cpp src/LinkedList.cpp src/Bubble_Sort.cpp src/User_Prompt.cpp
 // ./a.exe
 
-#include "src/LinkedList_Database.h"
+#include "src/LinkedList.h"
 #include "src/Bubble_Sort.h"
 #include "src/User_Prompt.h"
 #include <string>
@@ -11,7 +11,7 @@
 #include <sstream>
 using namespace std;
 
-void parse_file(ifstream& inputFile, Database& access) {
+void parse_file (ifstream& inputFile, LinkedList& access) {
 	string name, networth, country, source, age, rank, industry, ignore;
 	int INT_age, INT_rank;
 	double DBL_networth;
@@ -50,15 +50,10 @@ void parse_file(ifstream& inputFile, Database& access) {
 		access.append_data(name, DBL_networth, country, source, INT_rank, INT_age, industry);
 	}
 }
-int main() {
-	string input_file = "src/input4.txt";
-	ifstream inputFile(input_file.c_str());
 
-	Database access;
-	prompt b_access;
-
+void prompt (ifstream& inputFile, LinkedList& access, Prompt& user_prompt){
 	parse_file(inputFile, access);
-	
+
 	char option;
 
 	do {
@@ -68,52 +63,51 @@ int main() {
 		cout << "\n2 - Add Entries\n";
 		cout << "\n3 - Delete Entries\n";
 		cout << "\n4 - Search Entries\n";
-		cout << "\n5 - Search Range\n";
-		cout << "\n6 - Sort Entries\n";
-		cout << "\n7 - Trim Data Entries\n";
-		cout << "\n8 - Exit\n";
+		cout << "\n5 - Sort Entries\n";
+		cout << "\n6 - Exit\n";
 
 		cin >> option;
 		switch (option) {
 
 		case '1':
-			b_access.print_entries(access);
+			user_prompt.print_entries(access);
 			break;
 
 		case '2':
-			b_access.add_entries(access);
+			user_prompt.add_entries(access);
 			break;
 
 		case '3':
-			b_access.delete_entries(access);
+			user_prompt.delete_entries(access);
 			break;
 
 		case '4':
-			b_access.search_entries(access);
+			user_prompt.search_entries(access);
 			break;
 
 		case '5':
-			b_access.search_range(access);
+			user_prompt.sort_entries(access);
 			break;
 
 		case '6':
-			b_access.sort_entries(access);
-			break;
-
-		case '7':
-			b_access.trim_entries(access);
-			break;
-
-		case '8':
-			b_access.exit_message();
+			user_prompt.exit_message();
 			break;
 
 		default:
-			b_access.invalid_input_message();
+			user_prompt.invalid_input_message();
 			break;
 
 		}
-	} while (option != '8');
+	} while (option != '6');
+}
+int main() {
+	string input_file = "src/input1.txt";
+	ifstream inputFile(input_file.c_str());
 
+	LinkedList access;
+	Prompt user_prompt;
+
+	prompt(inputFile, access, user_prompt);
+	
 	return 0;
 }

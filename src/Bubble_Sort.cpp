@@ -1,5 +1,5 @@
 #include "Bubble_Sort.h"
-#include "LinkedList_Database.h"
+#include "LinkedList.h"
 #include <iostream>
 
 using namespace std;
@@ -20,7 +20,7 @@ void swap_nodes(node* current) {
 	swap(current->industry, current->next->industry);
 }
 
-void perform_sorting(Database& access, string field, char option) {
+void perform_sorting(LinkedList& access, string field, char option) {
 
 	//option a == increasing
 	//option b == decreasing

@@ -1,4 +1,4 @@
-#include "LinkedList_Database.h"
+#include "LinkedList.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -6,7 +6,7 @@
 #include <algorithm>
 using namespace std;
 
-Database::Database() {
+LinkedList::LinkedList() {
 	head = NULL;
 	size = 0;
 }
@@ -15,7 +15,7 @@ Database::Database() {
 /*ADD FUNCTIONS*/
 
 
-bool Database::check_empty() {
+bool LinkedList::check_empty() {
 	if (head == NULL) {
 		cout << "\nThe database has currently no entries.\n\n";
 		return true;
@@ -23,13 +23,13 @@ bool Database::check_empty() {
 	return false;
 }
 
-bool Database::check_uniqueness(string NAME, string COUNTRY, string SOURCE, string INDUSTRY) {
+bool LinkedList::check_uniqueness(string name, string country, string source, string industry) {
 	node* current = head;
 
 	while (current != NULL) {
 
-		if ((current->name == NAME) && (current->country == COUNTRY) &&
-			(current->source == SOURCE) && (current->industry == INDUSTRY)) {
+		if ((current->name == name) && (current->country == country) &&
+			(current->source == source) && (current->industry == industry)) {
 
 			return false;
 		}
@@ -38,39 +38,39 @@ bool Database::check_uniqueness(string NAME, string COUNTRY, string SOURCE, stri
 	return true;
 }
 
-node* Database::create_data(string NAME, double NETWORTH, string COUNTRY,
-	string SOURCE, int RANK, int AGE, string INDUSTRY) {
+node* LinkedList::create_data(string name, double networth, string country,
+	string source, int rank, int age, string industry) {
 
 	node* data = new node;
 
-	data->name = NAME;
+	data->name = name;
 
-	data->net_worth = NETWORTH;
+	data->net_worth = networth;
 
-	data->country = COUNTRY;
+	data->country = country;
 
-	data->source = SOURCE;
+	data->source = source;
 
-	data->ranking = RANK;
+	data->ranking = rank;
 
-	data->age = AGE;
+	data->age = age;
 
-	data->industry = INDUSTRY;
+	data->industry = industry;
 
 	return data;
 }
 
-void Database::append_data(string NAME, double NETWORTH, string COUNTRY,
-	string SOURCE, int RANK, int AGE, string INDUSTRY) {
+void LinkedList::append_data(string name, double networth, string country,
+	string source, int rank, int age, string industry) {
 
 	node* current = head;
-	bool check = check_uniqueness(NAME, COUNTRY, SOURCE, INDUSTRY);
+	bool check = check_uniqueness(name, country, source, industry);
 
 	if (check == false) {
 		cout << "INVALID: DATA ALREADY EXISTS" << endl << endl;
 		return;
 	}
-	node* data = create_data(NAME, NETWORTH, COUNTRY, SOURCE, RANK, AGE, INDUSTRY);
+	node* data = create_data(name, networth, country, source, rank, age, industry);
 	data->next = NULL;
 
 	if (current == NULL) {
@@ -86,28 +86,28 @@ void Database::append_data(string NAME, double NETWORTH, string COUNTRY,
 	}
 }
 
-void Database::insertNewData(string NAME, double NETWORTH, string COUNTRY,
-	string SOURCE, int RANK, int AGE, string INDUSTRY, int POSITION) {
+void LinkedList::insertNewData(string name, double networth, string country,
+	string source, int rank, int age, string industry, int position) {
 
 	node* current = head;
 
-	bool check = check_uniqueness(NAME, COUNTRY, SOURCE, INDUSTRY);
+	bool check = check_uniqueness(name, country, source, industry);
 	if (check == false) {
 		cout << "INVALID: DATA ALREADY EXISTS" << endl << endl;
 		return;
 	}
-	node* data = create_data(NAME, NETWORTH, COUNTRY, SOURCE, RANK, AGE, INDUSTRY);
+	node* data = create_data(name, networth, country, source, rank, age, industry);
 
-	if (POSITION <= 0) {
+	if (position <= 0) {
 		data->next = head;
 		head = data;
 		size++;
 	}
-	else if (POSITION >= size) {
-		append_data(NAME, NETWORTH, COUNTRY, SOURCE, RANK, AGE, INDUSTRY);
+	else if (position >= size) {
+		append_data(name, networth, country, source, rank, age, industry);
 	}
 	else {
-		for (int i = 0; i < POSITION - 1; i++) {
+		for (int i = 0; i < position - 1; i++) {
 			current = current->next;
 		}
 		data->next = current->next;
@@ -121,7 +121,7 @@ void Database::insertNewData(string NAME, double NETWORTH, string COUNTRY,
 
 
 /*Checks the task and field to either do search or remove.*/
-void Database::string_task(string task, string field, string input_data) {
+void LinkedList::string_task(string task, string field, string input_data) {
 	if (task == "delete") {
 		remove_word(field, input_data); 
 	}
@@ -130,7 +130,7 @@ void Database::string_task(string task, string field, string input_data) {
 	}
 }
 
-void Database::num_task(string task, string field, double num) {
+void LinkedList::num_task(string task, string field, double num) {
 	if (task == "delete") {
 		remove_num(field, num);
 	}
@@ -141,7 +141,7 @@ void Database::num_task(string task, string field, double num) {
 
 
 /*Checks the field and returns the current value from the linked list.*/
-double Database::get_val(node* current, string field) {
+double LinkedList::get_val(node* current, string field) {
 	if (field == "networth") {
 		return current->net_worth; 
 	}
@@ -156,7 +156,7 @@ double Database::get_val(node* current, string field) {
 
 
 /*Transform both strings to upper cases and checks if they are equal.*/
-bool Database::check_strings(string s1, string s2) {
+bool LinkedList::check_strings(string s1, string s2) {
 	transform(s1.begin(), s1.end(), s1.begin(), ::toupper);
 	transform(s2.begin(), s2.end(), s2.begin(), ::toupper);
 
@@ -167,7 +167,7 @@ bool Database::check_strings(string s1, string s2) {
 }
 
 /*Checks the field and performs case insensitivity match*/
-bool Database::check_case_insensitivity(node* current, string field, string input_data) {
+bool LinkedList::check_case_insensitivity(node* current, string field, string input_data) {
 	if (field == "name") {
 		if (check_strings(current->name, input_data)) {
 			return true;
@@ -195,7 +195,7 @@ bool Database::check_case_insensitivity(node* current, string field, string inpu
 /*REMOVE FUNCTIONS*/
 
 
-bool Database::check_remove_flag(bool flag) {
+bool LinkedList::check_remove_flag(bool flag) {
 	if (flag == false) {
 		cout << "Sorry, the data is non existent.\n\n";
 		return false;
@@ -204,7 +204,7 @@ bool Database::check_remove_flag(bool flag) {
 	return true;
 }
 
-node* Database::delete_beginning(node* temp) {
+node* LinkedList::delete_beginning(node* temp) {
 	temp = head;
 	head = head->next;
 
@@ -213,7 +213,7 @@ node* Database::delete_beginning(node* temp) {
 	return head;
 }
 
-node* Database::delete_positional_elements(node* current) {
+node* LinkedList::delete_positional_elements(node* current) {
 	node* temp = current->next;
 	current->next = current->next->next;
 
@@ -222,25 +222,15 @@ node* Database::delete_positional_elements(node* current) {
 	return current->next;
 }
 
-void Database::delete_last_and_remaining_element(node* current) {
+void LinkedList::delete_last_and_remaining_element(node* current) {
 	head = NULL;
 
 	delete current;
 	size--;
 }
 
-node* Database::remove_all(node* temp) {
-	while (temp != NULL) {
-		head = head->next;
-		delete temp;
-		temp = head;
-		size--;
-	}
-	head = NULL;
-	return head;
-}
 
-void Database::remove_word(string field, string input_data) {
+void LinkedList::remove_word(string field, string input_data) {
 	if (check_empty()) {
 		return;
 	}
@@ -277,7 +267,7 @@ void Database::remove_word(string field, string input_data) {
 	check_remove_flag(flag);
 }
 
-void Database::remove_num(string field, double num) {
+void LinkedList::remove_num(string field, double num) {
 	if (check_empty()) {
 		return;
 	}
@@ -305,43 +295,11 @@ void Database::remove_num(string field, double num) {
 	check_remove_flag(flag);
 }
 
-void Database::trim(int num1, int  num2) {
-	if (check_empty()) {
-		return;
-	}
-	if (num1 <= 0 && num2 >= size) {
-		remove_all(head);
-		cout << "\nAll data entries are deleted.\n\n";
-		return;
-	}
-
-	node* current = head;
-	int counter = 0;
-
-	while (current != NULL && current->next != NULL && counter != num2) {
-		if (num1 == 0) { 
-			current = delete_beginning(head);
-		} 
-		else if (num2 > counter + 1 && counter + 1 >= num1) {
-			delete_positional_elements(current);
-		} 
-		else {
-			current = current->next;
-		}
-		
-		counter++;
-	}
-	if (size == 1 && counter == num2) {
-		delete_last_and_remaining_element(current);
-	}
-	cout << "\n--------------------------------------------SUCCESSFULLY TRIMMED THE DATA-----------------------------------------------\n\n";
-}
-
 
 /*SEARCH FUNCTIONS*/
 
 
-bool Database::check_search_flag(bool flag, int counter) {
+bool LinkedList::check_search_flag(bool flag, int counter) {
 	if (flag == false) {
 		cout << "Sorry, but the data you are searching for does not exist.\n\n";
 		return false;
@@ -350,13 +308,13 @@ bool Database::check_search_flag(bool flag, int counter) {
 	return true;
 }
 
-void Database::update(node* current, bool& flag, int& counter) {
+void LinkedList::update(node* current, bool& flag, int& counter) {
 	text(current);
 	flag = true;
 	counter++;
 }
 
-bool Database::filter_word(string field, string input_data) {
+bool LinkedList::filter_word(string field, string input_data) {
 	bool flag = false;
 	int counter = 0;
 	node* current = head;
@@ -375,7 +333,7 @@ bool Database::filter_word(string field, string input_data) {
 	return (check_search_flag(flag, counter));
 }
 
-bool Database::filter_num(string field, double num) {
+bool LinkedList::filter_num(string field, double num) {
 	bool flag = false;
 	int counter = 0;
 	node* current = head;
@@ -389,33 +347,18 @@ bool Database::filter_num(string field, double num) {
 	return (check_search_flag(flag, counter));
 }
 
-bool Database::filter_range(string field, double num1, double num2) {
-	bool flag = false;
-	int counter = 0;
-	node* current = head;
-
-	while (current != NULL) {
-		if (num1 <= get_val(current, field) && get_val(current, field) <= num2) {
-			update(current, flag, counter);
-		}
-		current = current->next;
-	}
-	return (check_search_flag(flag, counter));
-
-}
-
 
 /*PRINT FUNCTIONS*/
 
 
-void Database::text(node* current) {
+void LinkedList::text(node* current) {
 	cout << "Name:" << current->name << endl;
 
 	cout << "Net Worth:$" << current->net_worth << " B Country:" << current->country << " Source:" << current->source <<
 		" RANK:" << current->ranking << " Age:" << current->age << " Industry:" << current->industry << endl << endl;
 }
 
-void Database::print() {
+void LinkedList::print() {
 	if (check_empty()) {
 		return;
 	}
@@ -427,7 +370,7 @@ void Database::print() {
 	}
 }
 
-Database::~Database() {
+LinkedList::~LinkedList() {
 	node* current = head;
 
 	while (current != NULL) {

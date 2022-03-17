@@ -12,32 +12,32 @@ struct node {
 	node* next{};
 };
 
-class Database{
+class LinkedList{
 protected:
 	int size;
 	node* head;
 
 public:
-	friend class prompt;
-	friend void perform_sorting(Database& access, string field, char option);
+	friend class Prompt;
+	friend void perform_sorting(LinkedList& access, string field, char option);
 
-	Database();
+	LinkedList();
 
 	/*ADD FUNCTIONS*/
 
 
 	bool check_empty();
 
-	bool check_uniqueness(string NAME, string COUNTRY, string SOURCE, string INDUSTRY);
+	bool check_uniqueness(string name, string country, string source, string industry);
 
-	node* create_data(string NAME, double NETWORTH, string COUNTRY,
-		string SOURCE, int RANK, int AGE, string INDUSTRY);
+	node* create_data(string name, double NETWORTH, string country,
+		string source, int rank, int age, string industry);
 
-	void append_data(string NAME, double NETWORTH, string COUNTRY,
-		string SOURCE, int RANK, int AGE, string INDUSTRY);
+	void append_data(string name, double NETWORTH, string country,
+		string source, int rank, int age, string industry);
 
-	void insertNewData(string NAME, double NETWORTH, string COUNTRY,
-		string SOURCE, int RANK, int AGE, string INDUSTRY, int POSITION);
+	void insertNewData(string name, double NETWORTH, string country,
+		string source, int rank, int age, string industry, int position);
 
 
 	/*UTULITY FUNCTIONS*/
@@ -76,8 +76,6 @@ public:
 
 	void remove_num(string field, double num);	
 
-	void trim(int pos1, int pos2);
-
 
 	/*SEARCH FUNCTIONS*/
 
@@ -90,16 +88,14 @@ public:
 
 	bool filter_num(string field, double num);	
 
-	bool filter_range(string field, double num1, double num2);
-
 
 	/*PRINT FUNCTIONS*/
 
-	void text(node* CURRENT);
+	void text(node* current);
 
 	void print();
 		
-	~Database();
+	~LinkedList();
 
 };
 #endif
