@@ -25,23 +25,21 @@ void perform_sorting(LinkedList& access, string field, char option) {
 
 	//option a == increasing
 	//option b == decreasing
+	
+	for (int i = 0; i < access.size - 1; i++) {
+		node* current = access.head;
+		for (int j = 0; j < access.size - 1 - i; j++) {
 
-	if (option == 'a') {
-		for (int i = 0; i < access.size - 1; i++) {
-			node* current = access.head;
-			for (int j = 0; j < access.size - 1 - i; j++) {
-
-				double num1 = stod(access.getData(current, field));
-				double num2 = stod(access.getData(current->next, field));
-
-				if (option == 'a' && num1 > num2) {
-					swap_nodes(current);
-				}
-				else if (option == 'b' && num1 < num2){
-					swap_nodes(current);
-				}
-				current = current->next;
+			double num1 = stod(access.getData(current, field));
+			double num2 = stod(access.getData(current->next, field));
+			if (option == 'a' && num1 > num2) {
+				swap_nodes(current);
 			}
+			else if (option == 'b' && (num1 < num2)){
+				swap_nodes(current);
+			}
+			current = current->next;
 		}
 	}
+	
 }
