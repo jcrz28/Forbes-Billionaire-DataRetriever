@@ -47,7 +47,7 @@ void parse_file (ifstream& inputFile, LinkedList& access) {
 
 		getline(inputFile, industry, '\n');
 
-		access.append_data(name, DBL_networth, country, source, INT_rank, INT_age, industry);
+		access.appendData(name, DBL_networth, country, source, INT_rank, INT_age, industry);
 	}
 }
 

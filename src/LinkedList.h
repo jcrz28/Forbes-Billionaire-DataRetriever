@@ -26,17 +26,17 @@ public:
 	/*ADD FUNCTIONS*/
 
 
-	bool check_empty();
+	bool checkEmpty();
 
-	bool check_uniqueness(string name, string country, string source, string industry);
+	bool checkUnique(string name, string country, string source, string industry);
 
-	node* create_data(string name, double NETWORTH, string country,
+	node* assignData(string name, double NETWORTH, string country,
 		string source, int rank, int age, string industry);
 
-	void append_data(string name, double NETWORTH, string country,
+	void appendData(string name, double NETWORTH, string country,
 		string source, int rank, int age, string industry);
 
-	void insertNewData(string name, double NETWORTH, string country,
+	void insertData(string name, double NETWORTH, string country,
 		string source, int rank, int age, string industry, int position);
 
 
@@ -48,15 +48,12 @@ public:
 	void num_task(string task, string field, double num);
 
 
-	/*Checks the field and returns the current value from the linked list.*/
-	double get_val(node* current, string field);	
+	/*Checks the field and returns the data from the linked list.*/
+	double getVal(node* current, string field);	
+	string getString(node* current, string field);
 
-
-	/*Transform both strings to upper cases and checks if they are equal.*/
-	bool check_strings(string s1, string s2);
-
-	/*Checks the field and performs case insensitivity match.*/
-	bool check_case_insensitivity(node* current, string field, string data);
+	/* Check if strings are equal.*/
+	bool checkStrings(node* current, string field, string input_data);
 
 
 	/*REMOVE FUNCTIONS*/
@@ -64,13 +61,11 @@ public:
 
 	bool check_remove_flag(bool flag);
 
-	node* delete_beginning(node* temp);
+	node* deleteFirstNode(node* temp);
 
-	node* delete_positional_elements(node* current);
+	node* deletePositionNode(node* current);
 
-	void delete_last_and_remaining_element(node* current);
-
-	node* remove_all(node* temp);
+	void deleteLastRemainingNode(node* current);
 
 	void remove_word(string field, string data);	
 
@@ -81,8 +76,6 @@ public:
 
 
 	bool check_search_flag(bool flag, int counter);
-
-	void update(node* current, bool& flag, int& counter);
 
 	bool filter_word(string field, string data);	
 

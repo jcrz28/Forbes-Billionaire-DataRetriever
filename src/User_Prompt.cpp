@@ -70,7 +70,7 @@ string Prompt::char_option_to_str_field_2(char option) {
 		return "age";
 	
 	default:
-		return "position";
+		return "";
 	}
 }
 
@@ -127,7 +127,7 @@ void Prompt::add_entries(LinkedList& access) {
 	getline(cin, industry);
 	cout << '\n';
 
-	access.insertNewData(name, networth, country, source, rank, age, industry, position);
+	access.insertData(name, networth, country, source, rank, age, industry, position);
 }
 
 void Prompt::delete_entries(LinkedList& access) {

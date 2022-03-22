@@ -29,7 +29,7 @@ void perform_sorting(LinkedList& access, string field, char option) {
 		for (int i = 0; i < access.size - 1; i++) {
 			node* current = access.head;
 			for (int j = 0; j < access.size - 1 - i; j++) {
-				if (access.get_val(current, field) > access.get_val(current->next, field)) {
+				if (access.getVal(current, field) > access.getVal(current->next, field)) {
 					swap_nodes(current);
 				}
 				current = current->next;
@@ -40,7 +40,7 @@ void perform_sorting(LinkedList& access, string field, char option) {
 		for (int i = 0; i < access.size - 1; i++) {
 			node* current = access.head;
 			for (int j = 0; j < access.size - 1 - i; j++) {
-				if (access.get_val(current, field) < access.get_val(current->next, field)) {
+				if (access.getVal(current, field) < access.getVal(current->next, field)) {
 					swap_nodes(current);
 				}
 				current = current->next;
