@@ -11,15 +11,13 @@
 #include <sstream>
 using namespace std;
 
-void parse_file (ifstream& inputFile, LinkedList& access) {
+void parseFile (ifstream& inputFile, LinkedList& access) {
 	string name, networth, country, source, age, rank, industry, ignore;
-	int INT_age, INT_rank;
-	double DBL_networth;
-	
 	char extra_endline = '\n';
 
 	while (!inputFile.eof()) {
 		getline(inputFile, name, '\t');
+
 		//Removes trailing strings from previous entry. This happens because of the function continue. 
 		//It grabs the last string from the previous line. 
 		size_t found = name.find(extra_endline);
@@ -29,30 +27,25 @@ void parse_file (ifstream& inputFile, LinkedList& access) {
 		}
 		getline(inputFile, networth, '\t');
 
-		//removes $ sign and 'B'
-		networth = networth.substr(1, networth.length()-1);
-		DBL_networth = stod(networth);
-
+		//removes $ sign, 'B', and leading space
+		networth = networth.substr(1, networth.length()-3);
 		getline(inputFile, country, '\t');
 		getline(inputFile, source, '\t');
-
 		getline(inputFile, rank, '\t');
-		INT_rank = stoi(rank);
-
 		getline(inputFile, age, '\t');
 
 		//age in dataset is not available
 		if (age == "N/A") continue;
-		INT_age = stoi(age);
 
 		getline(inputFile, industry, '\n');
 
-		access.appendData(name, DBL_networth, country, source, INT_rank, INT_age, industry);
+		access.appendData(name, networth, country, source, rank, age, industry);
 	}
 }
 
 void prompt (ifstream& inputFile, LinkedList& access, Prompt& user_prompt){
-	parse_file(inputFile, access);
+	// assumes all inputs are valid for each column
+	parseFile(inputFile, access);
 
 	char option;
 

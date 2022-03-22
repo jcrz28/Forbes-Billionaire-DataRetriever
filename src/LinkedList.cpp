@@ -38,14 +38,14 @@ bool LinkedList::checkUnique(string name, string country, string source, string 
 	return true;
 }
 
-node* LinkedList::assignData(string name, double networth, string country,
-	string source, int rank, int age, string industry) {
+node* LinkedList::assignData(string name, string networth, string country,
+	string source, string rank, string age, string industry) {
 
 	node* data = new node;
 
 	data->name = name;
 
-	data->net_worth = networth;
+	data->networth = networth;
 
 	data->country = country;
 
@@ -60,8 +60,8 @@ node* LinkedList::assignData(string name, double networth, string country,
 	return data;
 }
 
-void LinkedList::appendData(string name, double networth, string country,
-	string source, int rank, int age, string industry) {
+void LinkedList::appendData(string name, string networth, string country,
+	string source, string rank, string age, string industry) {
 
 	node* current = head;
 	bool check = checkUnique(name, country, source, industry);
@@ -86,8 +86,8 @@ void LinkedList::appendData(string name, double networth, string country,
 	}
 }
 
-void LinkedList::insertData(string name, double networth, string country,
-	string source, int rank, int age, string industry, int position) {
+void LinkedList::insertData(string name, string networth, string country,
+	string source, string rank, string age, string industry, int position) {
 
 	node* current = head;
 
@@ -118,38 +118,18 @@ void LinkedList::insertData(string name, double networth, string country,
 
 
 /*Checks the task and field to either do search or remove.*/
-void LinkedList::string_task(string task, string field, string input_data) {
+void LinkedList::getTask(string task, string field, string input_data) {
 	if (task == "delete") {
-		remove_word(field, input_data); 
+		removeData(field, input_data); 
 	}
 	else {
-		filter_word(field, input_data); 
-	}
-}
-
-void LinkedList::num_task(string task, string field, double num) {
-	if (task == "delete") {
-		remove_num(field, num);
-	}
-	else{
-		filter_num(field, num); 
+		filterData(field, input_data); 
 	}
 }
 
 /*Checks the field and returns the data from the linked list.*/
-double LinkedList::getVal(node* current, string field) {
-	if (field == "networth") {
-		return current->net_worth; 
-	}
-	else if (field == "rank") {
-		return current->ranking; 
-	}
-	else{
-		return current->age; 
-	}
-}
 
-string LinkedList:: getString(node* current, string field){
+string LinkedList::getData(node* current, string field){
 	if (field == "name") {
 		return current->name;
 	}
@@ -159,15 +139,24 @@ string LinkedList:: getString(node* current, string field){
 	else if (field == "source") {
 		return current->source;
 	}
-	else{
+	else if (field ==  "industry"){
 		return current->industry;
+	}
+	else if (field == "networth") {
+		return current->networth; 
+	}
+	else if (field == "rank") {
+		return current->ranking; 
+	}
+	else{
+		return current->age; 
 	}
 }
 
 /*Checks the field and performs case insensitivity match*/
 bool LinkedList::checkStrings(node* current, string field, string input_data) {
 	
-	string s1 = getString(current, field);
+	string s1 = getData(current, field);
 	string s2 = input_data;
 
 	transform(s1.begin(), s1.end(), s1.begin(), ::toupper);
@@ -179,11 +168,10 @@ bool LinkedList::checkStrings(node* current, string field, string input_data) {
 	return false;
 }
 
-
 /*REMOVE FUNCTIONS*/
 
 
-bool LinkedList::check_remove_flag(bool flag) {
+bool LinkedList::checkRemoveFlag(bool flag) {
 	if (!flag) {
 		cout << "Sorry, the data is non existent.\n\n";
 		return false;
@@ -218,7 +206,7 @@ void LinkedList::deleteLastRemainingNode(node* current) {
 }
 
 
-void LinkedList::remove_word(string field, string input_data) {
+void LinkedList::removeData(string field, string input_data) {
 	if (checkEmpty()) {
 		return;
 	}
@@ -252,42 +240,14 @@ void LinkedList::remove_word(string field, string input_data) {
 		flag = true;
 	}
 		
-	check_remove_flag(flag);
-}
-
-void LinkedList::remove_num(string field, double num) {
-	if (checkEmpty()) {
-		return;
-	}
-	bool flag = false;
-	node* current = head;
-
-	while (current != NULL && current->next != NULL) {
-		if (head == current && getVal(current, field) == num) {
-			current = deleteFirstNode(head);
-			flag = true;
-		}
-		else if (getVal(current->next, field) == num) {
-			deletePositionNode(current);
-			flag = true;
-		}
-		else {
-			current = current->next;
-		}
-	}
-	if (current != NULL && size == 1 && getVal(current, field) == num) {
-		deleteLastRemainingNode(current);
-		flag = true;
-	}
-	
-	check_remove_flag(flag);
+	checkRemoveFlag(flag);
 }
 
 
 /*SEARCH FUNCTIONS*/
 
 
-bool LinkedList::check_search_flag(bool flag, int counter) {
+bool LinkedList::checkSearchFlag(bool flag, int counter) {
 	if (!flag) {
 		cout << "Sorry, but the data you are searching for does not exist.\n\n";
 		return false;
@@ -296,7 +256,7 @@ bool LinkedList::check_search_flag(bool flag, int counter) {
 	return true;
 }
 
-bool LinkedList::filter_word(string field, string input_data) {
+bool LinkedList::filterData(string field, string input_data) {
 	bool flag = false;
 	int counter = 0;
 	node* current = head;
@@ -313,28 +273,12 @@ bool LinkedList::filter_word(string field, string input_data) {
 		}
 		current = current->next;
 	}	
-	return (check_search_flag(flag, counter));
-}
-
-bool LinkedList::filter_num(string field, double num) {
-	bool flag = false;
-	int counter = 0;
-	node* current = head;
-
-	while (current != NULL) {
-		if (getVal(current, field) == num) {
-			flag = true;
-			counter++;
-			text(current);
-		}
-		current = current->next;
-	}
-	return (check_search_flag(flag, counter));
+	return (checkSearchFlag(flag, counter));
 }
 
 void LinkedList::text(node* current) {
 	cout << "Name:" << current->name << endl;
-	cout << "Net Worth:$" << current->net_worth << " B Country:" << current->country << " Source:" << current->source <<
+	cout << "Net Worth:$" << current->networth << " B Country:" << current->country << " Source:" << current->source <<
 		" RANK:" << current->ranking << " Age:" << current->age << " Industry:" << current->industry << endl << endl;
 }
 

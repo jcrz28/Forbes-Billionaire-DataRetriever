@@ -82,12 +82,7 @@ void Prompt::get_input_data(LinkedList& access, string task, char option) {
 	cin.ignore();
 	getline(cin, input_data);
 
-	if (option == 'b' || option == 'e' || option == 'f'){
-		access.num_task(task, field, stod(input_data));
-	}
-	else{
-		access.string_task(task, field, input_data);
-	}
+	access.getTask(task, field, input_data);
 }
 
 void Prompt::print_entries(LinkedList& access) {
@@ -96,8 +91,8 @@ void Prompt::print_entries(LinkedList& access) {
 
 void Prompt::add_entries(LinkedList& access) {
 	string name, country, source, industry;
-	int rank, age, position;
-	float networth;
+	string rank, age, networth;
+	int position;
 
 	cout << "Position Number:";
 	cin >> position;

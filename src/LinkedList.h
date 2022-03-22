@@ -6,9 +6,7 @@
 using namespace std;
 
 struct node {
-	string name{}, country{}, source{}, industry{};
-	int ranking{}, age{};
-	double net_worth{};
+	string name{}, country{}, source{}, industry{}, ranking{}, age{}, networth{};
 	node* next{};
 };
 
@@ -30,27 +28,24 @@ public:
 
 	bool checkUnique(string name, string country, string source, string industry);
 
-	node* assignData(string name, double NETWORTH, string country,
-		string source, int rank, int age, string industry);
+	node* assignData(string name, string networth, string country,
+		string source, string rank, string age, string industry);
 
-	void appendData(string name, double NETWORTH, string country,
-		string source, int rank, int age, string industry);
+	void appendData(string name, string networth, string country,
+		string source, string rank, string age, string industry);
 
-	void insertData(string name, double NETWORTH, string country,
-		string source, int rank, int age, string industry, int position);
+	void insertData(string name, string networth, string country,
+		string source, string rank, string age, string industry, int position);
 
 
 	/*UTULITY FUNCTIONS*/
 
 
 	/*Checks the task and field to either do search or remove.*/
-	void string_task(string task, string field, string data);
-	void num_task(string task, string field, double num);
-
+	void getTask(string task, string field, string num);
 
 	/*Checks the field and returns the data from the linked list.*/
-	double getVal(node* current, string field);	
-	string getString(node* current, string field);
+	string getData (node* current, string field);
 
 	/* Check if strings are equal.*/
 	bool checkStrings(node* current, string field, string input_data);
@@ -59,7 +54,7 @@ public:
 	/*REMOVE FUNCTIONS*/
 
 
-	bool check_remove_flag(bool flag);
+	bool checkRemoveFlag(bool flag);
 
 	node* deleteFirstNode(node* temp);
 
@@ -67,20 +62,15 @@ public:
 
 	void deleteLastRemainingNode(node* current);
 
-	void remove_word(string field, string data);	
-
-	void remove_num(string field, double num);	
+	void removeData(string field, string data);	
 
 
 	/*SEARCH FUNCTIONS*/
 
 
-	bool check_search_flag(bool flag, int counter);
+	bool checkSearchFlag(bool flag, int counter);
 
-	bool filter_word(string field, string data);	
-
-	bool filter_num(string field, double num);	
-
+	bool filterData(string field, string data);	
 
 	/*PRINT FUNCTIONS*/
 

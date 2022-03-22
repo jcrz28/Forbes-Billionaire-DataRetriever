@@ -1,5 +1,6 @@
 #include "Bubble_Sort.h"
 #include "LinkedList.h"
+#include <string>
 #include <iostream>
 
 using namespace std;
@@ -7,7 +8,7 @@ using namespace std;
 void swap_nodes(node* current) {
 	swap(current->name, current->next->name);
 
-	swap(current->net_worth, current->next->net_worth);
+	swap(current->networth, current->next->networth);
 
 	swap(current->country, current->next->country);
 
@@ -29,18 +30,14 @@ void perform_sorting(LinkedList& access, string field, char option) {
 		for (int i = 0; i < access.size - 1; i++) {
 			node* current = access.head;
 			for (int j = 0; j < access.size - 1 - i; j++) {
-				if (access.getVal(current, field) > access.getVal(current->next, field)) {
+
+				double num1 = stod(access.getData(current, field));
+				double num2 = stod(access.getData(current->next, field));
+
+				if (option == 'a' && num1 > num2) {
 					swap_nodes(current);
 				}
-				current = current->next;
-			}
-		}
-	}
-	else {
-		for (int i = 0; i < access.size - 1; i++) {
-			node* current = access.head;
-			for (int j = 0; j < access.size - 1 - i; j++) {
-				if (access.getVal(current, field) < access.getVal(current->next, field)) {
+				else if (option == 'b' && num1 < num2){
 					swap_nodes(current);
 				}
 				current = current->next;
