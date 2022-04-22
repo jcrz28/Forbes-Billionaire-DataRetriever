@@ -70,20 +70,22 @@ void LinkedList::appendData(string name, string networth, string country,
 		cout << "INVALID: DATA ALREADY EXISTS" << endl << endl;
 		return;
 	}
+	
 	node* data = assignData(name, networth, country, source, rank, age, industry);
 	data->next = NULL;
 
 	if (current == NULL) {
 		head = data;
 		size++;
+		return;
 	}
-	else {
-		while (current->next != NULL) {
-			current = current->next;
-		}
-		current->next = data;
-		size++;
+	
+	while (current->next != NULL) {
+		current = current->next;
 	}
+	current->next = data;
+	size++;
+	return;
 }
 
 void LinkedList::insertData(string name, string networth, string country,
@@ -102,18 +104,20 @@ void LinkedList::insertData(string name, string networth, string country,
 		data->next = head;
 		head = data;
 		size++;
+		return;
 	}
-	else if (position >= size) {
-		appendData(name, networth, country, source, rank, age, industry);
+	
+	if (position >= size) {
+		return appendData(name, networth, country, source, rank, age, industry);
 	}
-	else {
-		for (int i = 0; i < position - 1; i++) {
-			current = current->next;
-		}
-		data->next = current->next;
-		current->next = data;
-		size++;
+	
+	for (int i = 0; i < position - 1; i++) {
+		current = current->next;
 	}
+	data->next = current->next;
+	current->next = data;
+	size++;
+	
 	return;
 }
 
@@ -206,7 +210,6 @@ void LinkedList::removeData(string field, string input_data) {
 	bool flag = false;
 	node* current = head;
 
-	
 	while (current != NULL && current->next != NULL) {
 		if (head == current && checkStrings(current, field, input_data)) {
 			current = deleteFirstNode(head);
