@@ -15,8 +15,7 @@ public:
 
 	void num_fields();
 
-	/*I converted char options to a string field category as I presumed
-	it would be easier to read and understand the code.*/
+	/*Char options to a string field category.*/
 
 	string char_option_to_str_field(char option);
 

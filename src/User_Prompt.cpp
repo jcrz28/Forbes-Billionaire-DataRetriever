@@ -191,14 +191,13 @@ void Prompt::choose_order(LinkedList& access, char option) {
 
 	cin >> option2;
 
-	if (option == 'a' || option == 'b' || option == 'c'){
-		perform_sorting(access, field, option2);
+	if (option2 == 'a' || option2 == 'b' || option2 == 'c'){
+		access.sort(field, option2);
 	}
 	else{
 		invalid_input_message();
 	}
 }
-
 
 
 void Prompt::invalid_input_message() {

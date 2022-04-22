@@ -1,9 +1,8 @@
 // To run the program: 
-// g++  main.cpp src/LinkedList.cpp src/Bubble_Sort.cpp src/User_Prompt.cpp
+// g++  main.cpp src/LinkedList.cpp src/User_Prompt.cpp
 // ./a.exe
 
 #include "src/LinkedList.h"
-#include "src/Bubble_Sort.h"
 #include "src/User_Prompt.h"
 #include <string>
 #include <iostream>
@@ -29,9 +28,13 @@ void parseFile (ifstream& inputFile, LinkedList& access) {
 
 		//removes $ sign, 'B', and leading space
 		networth = networth.substr(1, networth.length()-3);
+		
 		getline(inputFile, country, '\t');
+
 		getline(inputFile, source, '\t');
+
 		getline(inputFile, rank, '\t');
+
 		getline(inputFile, age, '\t');
 
 		//age in dataset is not available

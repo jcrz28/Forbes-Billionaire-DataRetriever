@@ -17,7 +17,7 @@ protected:
 
 public:
 	friend class Prompt;
-	friend void perform_sorting(LinkedList& access, string field, char option);
+	// friend void perform_sorting(LinkedList& access, string field, char option);
 
 	LinkedList();
 
@@ -67,10 +67,17 @@ public:
 
 	/*SEARCH FUNCTIONS*/
 
-
 	bool checkSearchFlag(bool flag, int counter);
 
 	bool filterData(string field, string data);	
+
+
+	/*SORT FUNCTIONS*/
+
+	void swap_nodes(node* current);
+
+	void sort(string field, char task);
+	
 
 	/*PRINT FUNCTIONS*/
 

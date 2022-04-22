@@ -114,6 +114,7 @@ void LinkedList::insertData(string name, string networth, string country,
 		current->next = data;
 		size++;
 	}
+	return;
 }
 
 
@@ -130,27 +131,19 @@ void LinkedList::getTask(string task, string field, string input_data) {
 /*Checks the field and returns the data from the linked list.*/
 
 string LinkedList::getData(node* current, string field){
-	if (field == "name") {
-		return current->name;
-	}
-	else if (field == "country") {
-		return current->country;
-	}
-	else if (field == "source") {
-		return current->source;
-	}
-	else if (field ==  "industry"){
-		return current->industry;
-	}
-	else if (field == "networth") {
-		return current->networth; 
-	}
-	else if (field == "rank") {
-		return current->ranking; 
-	}
-	else{
-		return current->age; 
-	}
+	if (field == "name") {return current->name;}
+
+	else if (field == "country") {return current->country;}
+
+	else if (field == "source") {return current->source;}
+
+	else if (field ==  "industry") {return current->industry;}
+
+	else if (field == "networth") {return current->networth;}
+
+	else if (field == "rank") {return current->ranking; }
+	
+	else {return current->age; }
 }
 
 /*Checks the field and performs case insensitivity match*/
@@ -281,6 +274,46 @@ void LinkedList::text(node* current) {
 	cout << "Net Worth:$" << current->networth << " B Country:" << current->country << " Source:" << current->source <<
 		" RANK:" << current->ranking << " Age:" << current->age << " Industry:" << current->industry << endl << endl;
 }
+
+void LinkedList::swap_nodes(node* current) {
+	swap(current->name, current->next->name);
+
+	swap(current->networth, current->next->networth);
+
+	swap(current->country, current->next->country);
+
+	swap(current->source, current->next->source);
+
+	swap(current->ranking, current->next->ranking);
+
+	swap(current->age, current->next->age);
+
+	swap(current->industry, current->next->industry);
+}
+
+void LinkedList::sort(string field, char option) {
+
+	//option a == increasing
+	//option b == decreasing
+	
+	for (int i = 0; i < size - 1; i++) {
+		node* current = head;
+		for (int j = 0; j < size - 1 - i; j++) {
+
+			double num1 = stod(getData(current, field));
+			double num2 = stod(getData(current->next, field));
+			if (option == 'a' && num1 > num2) {
+				swap_nodes(current);
+			}
+			else if (option == 'b' && (num1 < num2)){
+				swap_nodes(current);
+			}
+			current = current->next;
+		}
+	}
+	
+}
+
 
 void LinkedList::print() {
 	if (checkEmpty()) {
