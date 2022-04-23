@@ -4,7 +4,6 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-using namespace std;
 
 LinkedList::LinkedList() {
 	head = NULL;
@@ -17,13 +16,13 @@ LinkedList::LinkedList() {
 
 bool LinkedList::checkEmpty() {
 	if (head == NULL) {
-		cout << "\nThe database has currently no entries.\n\n";
+		std::cout << "\nThe database has currently no entries.\n\n";
 		return true;
 	}
 	return false;
 }
 
-bool LinkedList::checkUnique(string name, string country, string source, string industry) {
+bool LinkedList::checkUnique(std::string name, std::string country, std::string source, std::string industry) {
 	node* current = head;
 
 	while (current != NULL) {
@@ -38,8 +37,8 @@ bool LinkedList::checkUnique(string name, string country, string source, string 
 	return true;
 }
 
-node* LinkedList::assignData(string name, string networth, string country,
-	string source, string rank, string age, string industry) {
+node* LinkedList::setData(std::string name, std::string networth, std::string country,
+	std::string source, std::string rank, std::string age, std::string industry) {
 
 	node* data = new node;
 
@@ -60,18 +59,18 @@ node* LinkedList::assignData(string name, string networth, string country,
 	return data;
 }
 
-void LinkedList::appendData(string name, string networth, string country,
-	string source, string rank, string age, string industry) {
+void LinkedList::appendData(std::string name, std::string networth, std::string country,
+	std::string source, std::string rank, std::string age, std::string industry) {
 
 	node* current = head;
 	bool check = checkUnique(name, country, source, industry);
 
 	if (!check) {
-		cout << "INVALID: DATA ALREADY EXISTS" << endl << endl;
+		std::cout << "INVALID: DATA ALREADY EXISTS\n\n";
 		return;
 	}
 	
-	node* data = assignData(name, networth, country, source, rank, age, industry);
+	node* data = setData(name, networth, country, source, rank, age, industry);
 	data->next = NULL;
 
 	if (current == NULL) {
@@ -88,17 +87,17 @@ void LinkedList::appendData(string name, string networth, string country,
 	return;
 }
 
-void LinkedList::insertData(string name, string networth, string country,
-	string source, string rank, string age, string industry, int position) {
+void LinkedList::insertData(std::string name, std::string networth, std::string country,
+	std::string source, std::string rank, std::string age, std::string industry, int position) {
 
 	node* current = head;
 
 	bool check = checkUnique(name, country, source, industry);
 	if (!check) {
-		cout << "INVALID: DATA ALREADY EXISTS" << endl << endl;
+		std::cout << "INVALID: DATA ALREADY EXISTS\n\n";
 		return;
 	}
-	node* data = assignData(name, networth, country, source, rank, age, industry);
+	node* data = setData(name, networth, country, source, rank, age, industry);
 
 	if (position <= 0) {
 		data->next = head;
@@ -123,7 +122,7 @@ void LinkedList::insertData(string name, string networth, string country,
 
 
 /*Checks the task and field to either do search or remove.*/
-void LinkedList::getTask(string task, string field, string input_data) {
+void LinkedList::getTask(std::string task, std::string field, std::string input_data) {
 	if (task == "delete") {
 		removeData(field, input_data); 
 	}
@@ -134,7 +133,7 @@ void LinkedList::getTask(string task, string field, string input_data) {
 
 /*Checks the field and returns the data from the linked list.*/
 
-string LinkedList::getData(node* current, string field){
+std::string LinkedList::getData(node* current, std::string field){
 	if (field == "name") {return current->name;}
 
 	else if (field == "country") {return current->country;}
@@ -151,10 +150,10 @@ string LinkedList::getData(node* current, string field){
 }
 
 /*Checks the field and performs case insensitivity match*/
-bool LinkedList::checkStrings(node* current, string field, string input_data) {
+bool LinkedList::checkStrings(node* current, std::string field, std::string input_data) {
 	
-	string s1 = getData(current, field);
-	string s2 = input_data;
+	std::string s1 = getData(current, field);
+	std::string s2 = input_data;
 
 	transform(s1.begin(), s1.end(), s1.begin(), ::toupper);
 	transform(s2.begin(), s2.end(), s2.begin(), ::toupper);
@@ -170,40 +169,39 @@ bool LinkedList::checkStrings(node* current, string field, string input_data) {
 
 bool LinkedList::checkRemoveFlag(bool flag) {
 	if (!flag) {
-		cout << "Sorry, the data is non existent.\n\n";
+		std::cout << "Sorry, the data is non existent.\n\n";
 		return false;
 	}
-	cout << "Entries are successfully deleted.\n\n";
+	std::cout << "Entries are successfully deleted.\n\n";
 	return true;
 }
 
 node* LinkedList::deleteFirstNode(node* temp) {
 	temp = head;
 	head = head->next;
-
-	delete temp;
+	
 	size--;
+	delete temp;
 	return head;
 }
 
 node* LinkedList::deletePositionNode(node* current) {
 	node* temp = current->next;
 	current->next = current->next->next;
-
-	delete temp;
+	
 	size--;
+	delete temp;
 	return current->next;
 }
 
 void LinkedList::deleteLastRemainingNode(node* current) {
 	head = NULL;
 
-	delete current;
 	size--;
+	delete current;
 }
 
-
-void LinkedList::removeData(string field, string input_data) {
+void LinkedList::removeData(std::string field, std::string input_data) {
 	if (checkEmpty()) {
 		return;
 	}
@@ -245,14 +243,14 @@ void LinkedList::removeData(string field, string input_data) {
 
 bool LinkedList::checkSearchFlag(bool flag, int counter) {
 	if (!flag) {
-		cout << "Sorry, but the data you are searching for does not exist.\n\n";
+		std::cout << "Sorry, but the data you are searching for does not exist.\n\n";
 		return false;
 	}
-	cout << "The data you are searching for has " << counter << " entries.\n\n";
+	std::cout << "The data you are searching for has " << counter << " entries.\n\n";
 	return true;
 }
 
-bool LinkedList::filterData(string field, string input_data) {
+bool LinkedList::filterData(std::string field, std::string input_data) {
 	bool flag = false;
 	int counter = 0;
 	node* current = head;
@@ -273,9 +271,9 @@ bool LinkedList::filterData(string field, string input_data) {
 }
 
 void LinkedList::text(node* current) {
-	cout << "Name:" << current->name << endl;
-	cout << "Net Worth:$" << current->networth << " B Country:" << current->country << " Source:" << current->source <<
-		" RANK:" << current->ranking << " Age:" << current->age << " Industry:" << current->industry << endl << endl;
+	std::cout << "Name:" << current->name << '\n';
+	std::cout << "Net Worth:$" << current->networth << " B Country:" << current->country << " Source:" << current->source <<
+		" RANK:" << current->ranking << " Age:" << current->age << " Industry:" << current->industry << "\n\n";
 }
 
 void LinkedList::swap_nodes(node* current) {
@@ -294,7 +292,7 @@ void LinkedList::swap_nodes(node* current) {
 	swap(current->industry, current->next->industry);
 }
 
-void LinkedList::sort(string field, char option) {
+void LinkedList::sort(std::string field, char option) {
 
 	//option a == increasing
 	//option b == decreasing
@@ -317,7 +315,6 @@ void LinkedList::sort(string field, char option) {
 	
 }
 
-
 void LinkedList::print() {
 	if (checkEmpty()) {
 		return;
@@ -336,8 +333,8 @@ LinkedList::~LinkedList() {
 	while (current != NULL) {
 		node* temp = current;
 		current = current->next;
-		delete temp;
 		size--;
+		delete temp;
 	}
 	head = NULL;
 }

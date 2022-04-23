@@ -8,20 +8,18 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-using namespace std;
 
-void parseFile (ifstream& inputFile, LinkedList& access) {
-	string name, networth, country, source, age, rank, industry, ignore;
-	char extra_endline = '\n';
+void parseFile (std::ifstream& inputFile, LinkedList& access) {
+	std::string name, networth, country, source, age, rank, industry, ignore;
 
 	while (!inputFile.eof()) {
 		getline(inputFile, name, '\t');
 
 		//Removes trailing strings from previous entry. This happens because of the function continue. 
 		//It grabs the last string from the previous line. 
-		size_t found = name.find(extra_endline);
+		size_t found = name.find('\n');
 
-		if (found != string::npos) {
+		if (found != std::string::npos) {
 			name = name.substr(found + 1, name.length());
 		}
 		getline(inputFile, networth, '\t');
@@ -46,23 +44,21 @@ void parseFile (ifstream& inputFile, LinkedList& access) {
 	}
 }
 
-void prompt (ifstream& inputFile, LinkedList& access, Prompt& user_prompt){
-	// assumes all inputs are valid for each column
+void prompt (std::ifstream& inputFile, LinkedList& access, Prompt& user_prompt){
 	parseFile(inputFile, access);
-
 	char option;
 
 	do {
-		cout << "Welcome to Forbes Billionaire 2021 Data Set.\n";
-		cout << "Please select a task from the list below.\n";
-		cout << "\n1 - View Entries\n";
-		cout << "\n2 - Add Entries\n";
-		cout << "\n3 - Delete Entries\n";
-		cout << "\n4 - Search Entries\n";
-		cout << "\n5 - Sort Entries\n";
-		cout << "\n6 - Exit\n";
+		std::cout << "Welcome to Forbes Billionaire 2021 Data Set.\n";
+		std::cout << "Please select a task from the list below.\n";
+		std::cout << "\n1 - View Entries\n";
+		std::cout << "\n2 - Add Entries\n";
+		std::cout << "\n3 - Delete Entries\n";
+		std::cout << "\n4 - Search Entries\n";
+		std::cout << "\n5 - Sort Entries\n";
+		std::cout << "\n6 - Exit\n";
 
-		cin >> option;
+		std::cin >> option;
 		switch (option) {
 
 		case '1':
@@ -96,9 +92,10 @@ void prompt (ifstream& inputFile, LinkedList& access, Prompt& user_prompt){
 		}
 	} while (option != '6');
 }
+
 int main() {
-	string input_file = "src/input1.txt";
-	ifstream inputFile(input_file.c_str());
+	std::string input_file = "src/input1.txt";
+	std::ifstream inputFile(input_file.c_str());
 
 	LinkedList access;
 	Prompt user_prompt;

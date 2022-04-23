@@ -6,30 +6,30 @@
 #include <sstream>
 
 void Prompt::all_fields() {
-	cout << "\na - Name\n";
+	std::cout << "\na - Name\n";
 
-	cout << "\nb - Networth\n";
+	std::cout << "\nb - Networth\n";
 
-	cout << "\nc - Country\n";
+	std::cout << "\nc - Country\n";
 
-	cout << "\nd - Source\n";
+	std::cout << "\nd - Source\n";
 
-	cout << "\ne - Rank\n";
+	std::cout << "\ne - Rank\n";
 
-	cout << "\nf - Age\n";
+	std::cout << "\nf - Age\n";
 
-	cout << "\ng - Industry\n";
+	std::cout << "\ng - Industry\n";
 }
 
 void Prompt::num_fields() {
-	cout << "\na - Networth\n";
+	std::cout << "\na - Networth\n";
 
-	cout << "\nb - Rank\n";
+	std::cout << "\nb - Rank\n";
 
-	cout << "\nc - Age\n";
+	std::cout << "\nc - Age\n";
 }
 
-string Prompt::char_option_to_str_field(char option) {
+std::string Prompt::char_option_to_str_field(char option) {
 	switch (option){
 	case 'a':
 		return "name";
@@ -58,7 +58,7 @@ string Prompt::char_option_to_str_field(char option) {
 	
 }
 
-string Prompt::char_option_to_str_field_2(char option) {
+std::string Prompt::char_option_to_str_field_2(char option) {
 	switch (option){
 	case 'a':
 		return "networth";
@@ -74,13 +74,13 @@ string Prompt::char_option_to_str_field_2(char option) {
 	}
 }
 
-void Prompt::get_input_data(LinkedList& access, string task, char option) {
-	string input_data;
-	string field = char_option_to_str_field(option);
+void Prompt::get_input_data(LinkedList& access, std::string task, char option) {
+	std::string input_data;
+	std::string field = char_option_to_str_field(option);
 
-	cout << "Enter the " << field << " you want to " << task << ":";
-	cin.ignore();
-	getline(cin, input_data);
+	std::cout << "Enter the " << field << " you want to " << task << ":";
+	std::cin.ignore();
+	std::getline(std::cin, input_data);
 
 	access.getTask(task, field, input_data);
 }
@@ -90,120 +90,109 @@ void Prompt::print_entries(LinkedList& access) {
 }
 
 void Prompt::add_entries(LinkedList& access) {
-	string name, country, source, industry;
-	string rank, age, networth;
+	std::string name, country, source, industry;
+	std::string rank, age, networth;
 	int position;
 
-	cout << "Position Number:";
-	cin >> position;
+	std::cout << "Position Number:";
+	std::cin >> position;
 
-	cout << "\nName:";
-	cin.ignore();
-	getline(cin, name);
+	std::cout << "\nName:";
+	std::cin.ignore();
+	std::getline(std::cin, name);
 
-	cout << "\nNetWorth:";
-	cin >> networth;
+	std::cout << "\nNetWorth:";
+	std::cin >> networth;
 
-	cout << "\nCountry:";
-	cin.ignore();
-	getline(cin, country);
+	std::cout << "\nCountry:";
+	std::cin.ignore();
+	std::getline(std::cin, country);
 
-	cout << "\nSource:";
-	getline(cin, source);
+	std::cout << "\nSource:";
+	std::getline(std::cin, source);
 
-	cout << "\nRank:";
-	cin >> rank;
+	std::cout << "\nRank:";
+	std::cin >> rank;
 
-	cout << "\nAge:";
-	cin >> age;
+	std::cout << "\nAge:";
+	std::cin >> age;
 
-	cout << "\nIndustry:";
-	cin.ignore();
-	getline(cin, industry);
-	cout << '\n';
+	std::cout << "\nIndustry:";
+	std::cin.ignore();
+	std::getline(std::cin, industry);
+	std::cout << '\n';
 
 	access.insertData(name, networth, country, source, rank, age, industry, position);
 }
 
 void Prompt::delete_entries(LinkedList& access) {
-
-	string task = "delete";
-	string field;
+	std::string task = "delete";
+	std::string field;
 	char option;
 
-	cout << "Select a field to delete:\n";
+	std::cout << "Select a field to delete:\n";
 	all_fields();
 
-	cin >> option;
+	std::cin >> option;
 
 	if (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g'){
-		get_input_data(access, task, option);
+		return get_input_data(access, task, option);
 	}
-	else{
-		invalid_input_message();
-	}
+	return invalid_input_message();
 }
 
 void Prompt::search_entries(LinkedList& access) {
+	std::string task = "search";
+	std::string search;
+	char option;
 
-	string task = "search";
-	string search;
-	char option{};
-
-	cout << "Select a field to search:\n";
+	std::cout << "Select a field to search:\n";
 	all_fields();
 
-	cin >> option;
+	std::cin >> option;
 	
 	if (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g'){
-		get_input_data(access, task, option);
+		return get_input_data(access, task, option);
 	}
-	else{
-		invalid_input_message();
-	}
+	return invalid_input_message();
 }
 
 void Prompt::sort_entries(LinkedList& access) {
-	char option{};
+	char option;
 
-	cout << "Select a field to sort:\n";
+	std::cout << "Select a field to sort:\n";
 	num_fields();
 
-	cin >> option;
+	std::cin >> option;
 
 	if (option == 'a' || option == 'b' || option == 'c'){
-		choose_order(access, option);
+		return choose_order(access, option);
 	}
-	else{
-		invalid_input_message();
-	}
+	return invalid_input_message();
 }
 
 void Prompt::choose_order(LinkedList& access, char option) {
-	string field = char_option_to_str_field_2(option);
-	char option2{};
+	std::string field = char_option_to_str_field_2(option);
+	char option2;
 
-	cout << "Select the sorting order:\n";
+	std::cout << "Select the sorting order:\n";
 
-	cout << "\na - Ascending order\n";
+	std::cout << "\na - Ascending order\n";
 
-	cout << "\nb - Descending order\n";
+	std::cout << "\nb - Descending order\n";
 
-	cin >> option2;
+	std::cin >> option2;
 
-	if (option2 == 'a' || option2 == 'b' || option2 == 'c'){
-		access.sort(field, option2);
+	if (option2 == 'a' || option2 == 'b'){
+		return access.sort(field, option2);
 	}
-	else{
-		invalid_input_message();
-	}
+	return invalid_input_message();
 }
 
-
 void Prompt::invalid_input_message() {
-	cout << "\nSorry invalid option. Please try again.\n\n";
+	std::cout << "\nSorry invalid option. Please try again.\n\n";
 }
 
 void Prompt::exit_message() {
-	cout << "\nThank you, goodbye.\n";
+	std::cout << "\nThank you, goodbye.\n";
 }
