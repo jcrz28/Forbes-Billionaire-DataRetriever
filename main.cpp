@@ -1,7 +1,3 @@
-// To run the program: 
-// g++  main.cpp src/LinkedList.cpp src/User_Prompt.cpp
-// ./a.exe
-
 #include "src/LinkedList.h"
 #include "src/User_Prompt.h"
 #include <string>
