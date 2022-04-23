@@ -6,5 +6,9 @@ ________________________________________________________________________________
 ### Status
 Project is complete.
 
+### Run the Program
+  - g++  main.cpp src/LinkedList.cpp src/User_Prompt.cpp
+  - ./a.exe
+
 ### Source
   - https://www.kaggle.com/roysouravcu/forbes-billionaires-of-2021
