@@ -74,17 +74,20 @@ std::string Prompt::char_option_to_str_field_2(char option) {
 }
 
 void Prompt::get_input_data(LinkedList& access, std::string task, char option) {
-	std::string input_data;
-	std::string field = char_option_to_str_field(option);
+	if (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g'){
+		std::string input_data;
+		std::string field = char_option_to_str_field(option);
 
-	std::cout << "Enter the " << field << " you want to " << task << ":";
-	std::cin.ignore();
-	std::getline(std::cin, input_data);
-	
-	if (task == "delete"){
-		return access.removeData(field, input_data);
+		std::cout << "Enter the " << field << " you want to " << task << ":";
+		std::cin.ignore();
+		std::getline(std::cin, input_data);
+		
+		if (task == "delete"){
+			return access.removeData(field, input_data);
+		}
+		return access.filterData(field, input_data);
 	}
-	return access.filterData(field, input_data);
+	return invalid_input_message();
 }
 
 void Prompt::print_entries(LinkedList& access) {
@@ -134,11 +137,7 @@ void Prompt::delete_entries(LinkedList& access) {
 	all_fields();
 
 	std::cin >> option;
-
-	if (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g'){
-		return get_input_data(access, task, option);
-	}
-	return invalid_input_message();
+	return get_input_data(access, task, option);
 }
 
 void Prompt::search_entries(LinkedList& access) {
@@ -149,11 +148,7 @@ void Prompt::search_entries(LinkedList& access) {
 	all_fields();
 
 	std::cin >> option;
-	
-	if (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g'){
-		return get_input_data(access, task, option);
-	}
-	return invalid_input_message();
+	return get_input_data(access, task, option);
 }
 
 void Prompt::sort_entries(LinkedList& access) {
@@ -165,25 +160,21 @@ void Prompt::sort_entries(LinkedList& access) {
 	std::cin >> option;
 
 	if (option == 'a' || option == 'b' || option == 'c'){
-		return choose_order(access, option);
-	}
-	return invalid_input_message();
-}
+		std::string field = char_option_to_str_field_2(option);
+		char option2;
 
-void Prompt::choose_order(LinkedList& access, char option) {
-	std::string field = char_option_to_str_field_2(option);
-	char option2;
+		std::cout << "Select the sorting order:\n";
 
-	std::cout << "Select the sorting order:\n";
+		std::cout << "\na - Ascending order\n";
 
-	std::cout << "\na - Ascending order\n";
+		std::cout << "\nb - Descending order\n";
 
-	std::cout << "\nb - Descending order\n";
+		std::cin >> option2;
 
-	std::cin >> option2;
-
-	if (option2 == 'a' || option2 == 'b'){
-		return access.sort(field, option2);
+		if (option2 == 'a' || option2 == 'b'){
+			return access.sort(field, option2);
+		}
+		return invalid_input_message();
 	}
 	return invalid_input_message();
 }

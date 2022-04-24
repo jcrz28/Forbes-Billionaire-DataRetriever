@@ -23,8 +23,6 @@ public:
 
 	void get_input_data(LinkedList& access, std::string task, char option);
 	
-	void choose_order(LinkedList& access, char option);
-
 	void invalid_input_message();
 
 

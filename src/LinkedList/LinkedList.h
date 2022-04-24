@@ -15,7 +15,6 @@ protected:
 	node* head;
 
 public:
-	friend class Prompt;
 
 	LinkedList();
 
