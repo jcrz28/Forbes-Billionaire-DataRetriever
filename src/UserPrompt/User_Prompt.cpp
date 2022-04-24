@@ -80,8 +80,11 @@ void Prompt::get_input_data(LinkedList& access, std::string task, char option) {
 	std::cout << "Enter the " << field << " you want to " << task << ":";
 	std::cin.ignore();
 	std::getline(std::cin, input_data);
-
-	access.getTask(task, field, input_data);
+	
+	if (task == "delete"){
+		return access.removeData(field, input_data);
+	}
+	return access.filterData(field, input_data);
 }
 
 void Prompt::print_entries(LinkedList& access) {
@@ -89,8 +92,7 @@ void Prompt::print_entries(LinkedList& access) {
 }
 
 void Prompt::add_entries(LinkedList& access) {
-	std::string name, country, source, industry;
-	std::string rank, age, networth;
+	std::string name, country, source, industry, rank, age, networth;
 	int position;
 
 	std::cout << "Position Number:";

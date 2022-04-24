@@ -38,21 +38,18 @@ public:
 
 	/*UTULITY FUNCTIONS*/
 
-
-	/*Checks the task and field to either do search or remove.*/
-	void getTask(std::string task, std::string field, std::string num);
-
 	/*Checks the field and returns the data from the linked list.*/
 	std::string getData (node* current, std::string field);
 
 	/* Check if strings are equal.*/
 	bool checkStrings(node* current, std::string field, std::string input_data);
 
+	void checkFlag(bool flag, int counter);
+
+	void checkFlag(bool flag);
 
 	/*REMOVE FUNCTIONS*/
 
-
-	bool checkRemoveFlag(bool flag);
 
 	node* deleteFirstNode(node* temp);
 
@@ -65,9 +62,7 @@ public:
 
 	/*SEARCH FUNCTIONS*/
 
-	bool checkSearchFlag(bool flag, int counter);
-
-	bool filterData(std::string field, std::string data);	
+	void filterData(std::string field, std::string data);	
 
 
 	/*SORT FUNCTIONS*/
@@ -84,6 +79,6 @@ public:
 	void print();
 		
 	~LinkedList();
-
 };
+
 #endif

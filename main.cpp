@@ -11,8 +11,7 @@ void parseFile(std::ifstream& inputFile, LinkedList& access) {
 	while (!inputFile.eof()) {
 		getline(inputFile, name, '\t');
 
-		//Removes trailing strings from previous entry. This happens because of the function continue. 
-		//It grabs the last string from the previous line. 
+		//Removes trailing strings from previous entry.
 		size_t found = name.find('\n');
 
 		if (found != std::string::npos) {
@@ -31,7 +30,6 @@ void parseFile(std::ifstream& inputFile, LinkedList& access) {
 
 		getline(inputFile, age, '\t');
 
-		//age in dataset is not available
 		if (age == "N/A") continue;
 
 		getline(inputFile, industry, '\n');

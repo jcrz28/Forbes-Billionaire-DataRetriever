@@ -120,33 +120,22 @@ void LinkedList::insertData(std::string name, std::string networth, std::string 
 	return;
 }
 
-
-/*Checks the task and field to either do search or remove.*/
-void LinkedList::getTask(std::string task, std::string field, std::string input_data) {
-	if (task == "delete") {
-		removeData(field, input_data); 
-	}
-	else {
-		filterData(field, input_data); 
-	}
-}
-
 /*Checks the field and returns the data from the linked list.*/
 
 std::string LinkedList::getData(node* current, std::string field){
 	if (field == "name") {return current->name;}
 
-	else if (field == "country") {return current->country;}
+	if (field == "country") {return current->country;}
 
-	else if (field == "source") {return current->source;}
+	if (field == "source") {return current->source;}
 
-	else if (field ==  "industry") {return current->industry;}
+	if (field ==  "industry") {return current->industry;}
 
-	else if (field == "networth") {return current->networth;}
+	if (field == "networth") {return current->networth;}
 
-	else if (field == "rank") {return current->ranking; }
+	if (field == "rank") {return current->ranking;}
 	
-	else {return current->age; }
+	if (field == "age") {return current->age;}
 }
 
 /*Checks the field and performs case insensitivity match*/
@@ -167,13 +156,11 @@ bool LinkedList::checkStrings(node* current, std::string field, std::string inpu
 /*REMOVE FUNCTIONS*/
 
 
-bool LinkedList::checkRemoveFlag(bool flag) {
+void LinkedList::checkFlag(bool flag) {
 	if (!flag) {
 		std::cout << "Sorry, the data is non existent.\n\n";
-		return false;
 	}
 	std::cout << "Entries are successfully deleted.\n\n";
-	return true;
 }
 
 node* LinkedList::deleteFirstNode(node* temp) {
@@ -234,23 +221,21 @@ void LinkedList::removeData(std::string field, std::string input_data) {
 		flag = true;
 	}
 		
-	checkRemoveFlag(flag);
+	checkFlag(flag);
 }
 
 
 /*SEARCH FUNCTIONS*/
 
 
-bool LinkedList::checkSearchFlag(bool flag, int counter) {
+void LinkedList::checkFlag(bool flag, int counter) {
 	if (!flag) {
 		std::cout << "Sorry, but the data you are searching for does not exist.\n\n";
-		return false;
 	}
 	std::cout << "The data you are searching for has " << counter << " entries.\n\n";
-	return true;
 }
 
-bool LinkedList::filterData(std::string field, std::string input_data) {
+void LinkedList::filterData(std::string field, std::string input_data) {
 	bool flag = false;
 	int counter = 0;
 	node* current = head;
@@ -267,7 +252,7 @@ bool LinkedList::filterData(std::string field, std::string input_data) {
 		}
 		current = current->next;
 	}	
-	return (checkSearchFlag(flag, counter));
+	checkFlag(flag, counter);
 }
 
 void LinkedList::text(node* current) {
@@ -293,16 +278,16 @@ void LinkedList::swap_nodes(node* current) {
 }
 
 void LinkedList::sort(std::string field, char option) {
-
 	//option a == increasing
 	//option b == decreasing
 	
 	for (int i = 0; i < size - 1; i++) {
 		node* current = head;
-		for (int j = 0; j < size - 1 - i; j++) {
 
+		for (int j = 0; j < size - 1 - i; j++) {
 			double num1 = stod(getData(current, field));
 			double num2 = stod(getData(current->next, field));
+
 			if (option == 'a' && num1 > num2) {
 				swap_nodes(current);
 			}
@@ -312,7 +297,6 @@ void LinkedList::sort(std::string field, char option) {
 			current = current->next;
 		}
 	}
-	
 }
 
 void LinkedList::print() {
