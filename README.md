@@ -7,7 +7,7 @@ ________________________________________________________________________________
 Project is complete.
 
 ### Run the Program
-  - g++  main.cpp src/LinkedList.cpp src/User_Prompt.cpp
+  - g++ main.cpp src/LinkedList/LinkedList.cpp src/UserPrompt/User_Prompt.cpp
   - ./a.exe
 
 ### Source

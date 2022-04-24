@@ -6,7 +6,7 @@
 
 struct node {
 	std::string name, country, source, ranking, industry, age, networth;
-	node* next{};
+	node* next;
 };
 
 class LinkedList{

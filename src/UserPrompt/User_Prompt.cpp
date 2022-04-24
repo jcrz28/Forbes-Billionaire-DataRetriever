@@ -1,5 +1,4 @@
 #include "User_Prompt.h"
-#include "LinkedList.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -127,7 +126,6 @@ void Prompt::add_entries(LinkedList& access) {
 
 void Prompt::delete_entries(LinkedList& access) {
 	std::string task = "delete";
-	std::string field;
 	char option;
 
 	std::cout << "Select a field to delete:\n";
@@ -143,7 +141,6 @@ void Prompt::delete_entries(LinkedList& access) {
 
 void Prompt::search_entries(LinkedList& access) {
 	std::string task = "search";
-	std::string search;
 	char option;
 
 	std::cout << "Select a field to search:\n";

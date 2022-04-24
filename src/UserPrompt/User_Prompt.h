@@ -2,7 +2,7 @@
 #ifndef USERPROMPT
 #define USERPROMPT
 
-#include "LinkedList.h"
+#include "../LinkedList/LinkedList.h"
 #include <iostream>
 
 class Prompt {

@@ -1,11 +1,11 @@
-#include "src/LinkedList.h"
-#include "src/User_Prompt.h"
+#include "src/LinkedList/LinkedList.h"
+#include "src/UserPrompt/User_Prompt.h"
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-void parseFile (std::ifstream& inputFile, LinkedList& access) {
+void parseFile(std::ifstream& inputFile, LinkedList& access) {
 	std::string name, networth, country, source, age, rank, industry, ignore;
 
 	while (!inputFile.eof()) {
@@ -40,10 +40,16 @@ void parseFile (std::ifstream& inputFile, LinkedList& access) {
 	}
 }
 
-void prompt (std::ifstream& inputFile, LinkedList& access, Prompt& user_prompt){
-	parseFile(inputFile, access);
-	char option;
+int main() {
+	std::string input_file = "src/inputFiles/input1.txt";
+	std::ifstream inputFile(input_file.c_str());
 
+	LinkedList access;
+	Prompt user_prompt;
+	parseFile(inputFile, access);
+
+	char option;
+	
 	do {
 		std::cout << "Welcome to Forbes Billionaire 2021 Data Set.\n";
 		std::cout << "Please select a task from the list below.\n";
@@ -84,19 +90,9 @@ void prompt (std::ifstream& inputFile, LinkedList& access, Prompt& user_prompt){
 		default:
 			user_prompt.invalid_input_message();
 			break;
-
 		}
+
 	} while (option != '6');
-}
-
-int main() {
-	std::string input_file = "src/input1.txt";
-	std::ifstream inputFile(input_file.c_str());
-
-	LinkedList access;
-	Prompt user_prompt;
-
-	prompt(inputFile, access, user_prompt);
 	
 	return 0;
 }
