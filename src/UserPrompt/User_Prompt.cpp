@@ -73,8 +73,13 @@ std::string Prompt::char_option_to_str_field_2(char option) {
 	}
 }
 
+bool Prompt::validOptions(char option){
+	return (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g');
+}
+
 void Prompt::get_input_data(LinkedList& access, std::string task, char option) {
-	if (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g'){
+	if (validOptions(option)){
+		
 		std::string input_data;
 		std::string field = char_option_to_str_field(option);
 

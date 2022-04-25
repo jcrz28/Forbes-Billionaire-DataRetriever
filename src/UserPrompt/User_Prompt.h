@@ -23,6 +23,8 @@ public:
 
 	void get_input_data(LinkedList& access, std::string task, char option);
 	
+	bool validOptions(char option);
+
 	void invalid_input_message();
 
 
