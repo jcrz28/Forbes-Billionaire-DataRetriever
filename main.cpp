@@ -1,15 +1,11 @@
-#include "src/LinkedList/LinkedList.h"
 #include "src/UserPrompt/User_Prompt.h"
-#include <string>
 #include <iostream>
 #include <fstream>
-#include <sstream>
 
 int main() {
 	std::string input_file = "src/inputFiles/input1.txt";
 	std::ifstream inputFile(input_file.c_str());
 
-	LinkedList access;
 	Prompt user_prompt;
 
 	user_prompt.load_entries(inputFile);
