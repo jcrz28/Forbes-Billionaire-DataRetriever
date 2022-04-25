@@ -5,9 +5,10 @@
 #include "../LinkedList/LinkedList.h"
 #include <iostream>
 
-class Prompt {
+class Prompt: public LinkedList {
 public:
 
+	
 	/*Shows the fields of the database*/
 	void all_fields();
 
@@ -21,25 +22,26 @@ public:
 	std::string char_option_to_str_field_2(char option); 
 
 
-	void get_input_data(LinkedList& access, std::string task, char option);
+	void get_input_data(std::string task, char option);
 	
 	bool validOptions(char option);
 
 	void invalid_input_message();
+	
 
+	void load_entries(std::ifstream& inputFile);
 
 	/*Main user options*/
+	
+	void print_entries();
 
+	void add_entries();
 
-	void print_entries(LinkedList& access);
+	void delete_entries();
 
-	void add_entries(LinkedList& access);
+	void search_entries();
 
-	void delete_entries(LinkedList& access);
-
-	void search_entries(LinkedList& access);
-
-	void sort_entries(LinkedList& access);
+	void sort_entries();
 
 	void exit_message();
 

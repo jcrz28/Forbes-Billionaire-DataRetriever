@@ -5,49 +5,16 @@
 #include <fstream>
 #include <sstream>
 
-void parseFile(std::ifstream& inputFile, LinkedList& access) {
-	std::string name, networth, country, source, age, rank, industry, ignore;
-
-	while (!inputFile.eof()) {
-		getline(inputFile, name, '\t');
-
-		//Removes trailing strings from previous entry.
-		size_t found = name.find('\n');
-
-		if (found != std::string::npos) {
-			name = name.substr(found + 1, name.length());
-		}
-		getline(inputFile, networth, '\t');
-
-		//removes $ sign, 'B', and leading space
-		networth = networth.substr(1, networth.length()-3);
-		
-		getline(inputFile, country, '\t');
-
-		getline(inputFile, source, '\t');
-
-		getline(inputFile, rank, '\t');
-
-		getline(inputFile, age, '\t');
-
-		if (age == "N/A") continue;
-
-		getline(inputFile, industry, '\n');
-
-		access.appendData(name, networth, country, source, rank, age, industry);
-	}
-}
-
 int main() {
 	std::string input_file = "src/inputFiles/input1.txt";
 	std::ifstream inputFile(input_file.c_str());
 
 	LinkedList access;
 	Prompt user_prompt;
-	parseFile(inputFile, access);
 
+	user_prompt.load_entries(inputFile);
 	char option;
-	
+
 	do {
 		std::cout << "Welcome to Forbes Billionaire 2021 Data Set.\n";
 		std::cout << "Please select a task from the list below.\n";
@@ -62,23 +29,23 @@ int main() {
 		switch (option) {
 
 		case '1':
-			user_prompt.print_entries(access);
+			user_prompt.print_entries();
 			break;
 
 		case '2':
-			user_prompt.add_entries(access);
+			user_prompt.add_entries();
 			break;
 
 		case '3':
-			user_prompt.delete_entries(access);
+			user_prompt.delete_entries();
 			break;
 
 		case '4':
-			user_prompt.search_entries(access);
+			user_prompt.search_entries();
 			break;
 
 		case '5':
-			user_prompt.sort_entries(access);
+			user_prompt.sort_entries();
 			break;
 
 		case '6':

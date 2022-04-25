@@ -77,7 +77,7 @@ bool Prompt::validOptions(char option){
 	return (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g');
 }
 
-void Prompt::get_input_data(LinkedList& access, std::string task, char option) {
+void Prompt::get_input_data(std::string task, char option) {
 	if (validOptions(option)){
 		
 		std::string input_data;
@@ -88,18 +88,51 @@ void Prompt::get_input_data(LinkedList& access, std::string task, char option) {
 		std::getline(std::cin, input_data);
 		
 		if (task == "delete"){
-			return access.deleteData(field, input_data);
+			return deleteData(field, input_data);
 		}
-		return access.filterData(field, input_data);
+		return filterData(field, input_data);
 	}
 	return invalid_input_message();
 }
 
-void Prompt::print_entries(LinkedList& access) {
-	access.print();
+void Prompt::load_entries(std::ifstream& inputFile){
+	std::string name, networth, country, source, age, rank, industry, ignore;
+
+	while (!inputFile.eof()) {
+		getline(inputFile, name, '\t');
+
+		//Removes trailing strings from previous entry.
+		size_t found = name.find('\n');
+
+		if (found != std::string::npos) {
+			name = name.substr(found + 1, name.length());
+		}
+		getline(inputFile, networth, '\t');
+
+		//removes $ sign, 'B', and leading space
+		networth = networth.substr(1, networth.length()-3);
+		
+		getline(inputFile, country, '\t');
+
+		getline(inputFile, source, '\t');
+
+		getline(inputFile, rank, '\t');
+
+		getline(inputFile, age, '\t');
+
+		if (age == "N/A") continue;
+
+		getline(inputFile, industry, '\n');
+
+		appendData(name, networth, country, source, rank, age, industry);
+	}
 }
 
-void Prompt::add_entries(LinkedList& access) {
+void Prompt::print_entries() {
+	print();
+}
+
+void Prompt::add_entries() {
 	std::string name, country, source, industry, rank, age, networth;
 	int position;
 
@@ -131,10 +164,10 @@ void Prompt::add_entries(LinkedList& access) {
 	std::getline(std::cin, industry);
 	std::cout << '\n';
 
-	access.insertData(name, networth, country, source, rank, age, industry, position);
+	insertData(name, networth, country, source, rank, age, industry, position);
 }
 
-void Prompt::delete_entries(LinkedList& access) {
+void Prompt::delete_entries() {
 	std::string task = "delete";
 	char option;
 
@@ -142,10 +175,10 @@ void Prompt::delete_entries(LinkedList& access) {
 	all_fields();
 
 	std::cin >> option;
-	return get_input_data(access, task, option);
+	return get_input_data(task, option);
 }
 
-void Prompt::search_entries(LinkedList& access) {
+void Prompt::search_entries() {
 	std::string task = "search";
 	char option;
 
@@ -153,10 +186,10 @@ void Prompt::search_entries(LinkedList& access) {
 	all_fields();
 
 	std::cin >> option;
-	return get_input_data(access, task, option);
+	return get_input_data(task, option);
 }
 
-void Prompt::sort_entries(LinkedList& access) {
+void Prompt::sort_entries() {
 	char option;
 
 	std::cout << "Select a field to sort:\n";
@@ -175,7 +208,7 @@ void Prompt::sort_entries(LinkedList& access) {
 		std::cin >> option;
 
 		if (option == 'a' || option == 'b'){
-			return access.sort(field, option);
+			return sort(field, option);
 		}
 		return invalid_input_message();
 	}
