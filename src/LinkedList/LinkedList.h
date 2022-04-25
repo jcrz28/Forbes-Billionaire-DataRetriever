@@ -47,16 +47,9 @@ public:
 
 	void checkFlag(bool flag);
 
-	/*REMOVE FUNCTIONS*/
+	/*DELETE FUNCTIONS*/
 
-
-	node* deleteFirstNode(node* temp);
-
-	node* deletePositionNode(node* current);
-
-	void deleteLastRemainingNode(node* current);
-
-	void removeData(std::string field, std::string data);	
+	void deleteData(std::string field, std::string data);	
 
 
 	/*SEARCH FUNCTIONS*/

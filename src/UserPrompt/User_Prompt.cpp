@@ -83,7 +83,7 @@ void Prompt::get_input_data(LinkedList& access, std::string task, char option) {
 		std::getline(std::cin, input_data);
 		
 		if (task == "delete"){
-			return access.removeData(field, input_data);
+			return access.deleteData(field, input_data);
 		}
 		return access.filterData(field, input_data);
 	}

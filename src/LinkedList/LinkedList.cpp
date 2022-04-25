@@ -159,44 +159,21 @@ void LinkedList::checkFlag(bool flag) {
 	else{ std::cout << "Entries are successfully deleted.\n\n"; }
 }
 
-node* LinkedList::deleteFirstNode(node* temp) {
-	temp = head;
-	head = head->next;
-	
-	size--;
-	delete temp;
-	return head;
-}
-
-node* LinkedList::deletePositionNode(node* current) {
-	node* temp = current->next;
-	current->next = current->next->next;
-	
-	size--;
-	delete temp;
-	return current->next;
-}
-
-void LinkedList::deleteLastRemainingNode(node* current) {
-	head = NULL;
-
-	size--;
-	delete current;
-}
-
-void LinkedList::removeData(std::string field, std::string input_data) {
+void LinkedList::deleteData(std::string field, std::string input_data) {
 	if (checkEmpty()) { return; }
 
 	bool flag = false;
 	node* current = head;
 
-	while (current != NULL && current->next != NULL) {
-		if (head == current && checkStrings(current, field, input_data)) {
-			current = deleteFirstNode(head);
+	while (current->next != NULL) {
+		if (checkStrings(current, field, input_data)){
+			current = head = head->next;
+			size--;
 			flag = true;
 		}
-		else if (checkStrings(current->next, field, input_data)) {
-			deletePositionNode(current);
+		else if (checkStrings(current->next, field, input_data)){
+			current->next = current->next->next;
+			size--;
 			flag = true;
 		}
 		else {
@@ -204,13 +181,14 @@ void LinkedList::removeData(std::string field, std::string input_data) {
 		}
 
 		if (field == "name" && flag) { break; }
-		
 	}
+
 	if (current != NULL && size == 1 && checkStrings(current, field, input_data)) {
-		deleteLastRemainingNode(current);
+		head = NULL;
+		size--;
 		flag = true;
 	}
-		
+	
 	checkFlag(flag);
 }
 
@@ -234,11 +212,13 @@ void LinkedList::filterData(std::string field, std::string input_data) {
 			flag = true;
 			counter++;
 			text(current);
-
-			if (field == "name") { break; }
 		}
+
+		if (field == "name" && flag) { break; }
+
 		current = current->next;
 	}	
+
 	checkFlag(flag, counter);
 }
 
