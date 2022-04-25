@@ -258,7 +258,7 @@ void LinkedList::sort(std::string field, char option) {
 			if (option == 'a' && num1 > num2) {
 				swap_nodes(current);
 			}
-			else if (option == 'b' && (num1 < num2)){
+			else if (option == 'b' && num1 < num2){
 				swap_nodes(current);
 			}
 			current = current->next;

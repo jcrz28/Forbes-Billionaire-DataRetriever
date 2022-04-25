@@ -161,18 +161,16 @@ void Prompt::sort_entries(LinkedList& access) {
 
 	if (option == 'a' || option == 'b' || option == 'c'){
 		std::string field = char_option_to_str_field_2(option);
-		char option2;
-
 		std::cout << "Select the sorting order:\n";
 
 		std::cout << "\na - Ascending order\n";
 
 		std::cout << "\nb - Descending order\n";
 
-		std::cin >> option2;
+		std::cin >> option;
 
-		if (option2 == 'a' || option2 == 'b'){
-			return access.sort(field, option2);
+		if (option == 'a' || option == 'b'){
+			return access.sort(field, option);
 		}
 		return invalid_input_message();
 	}
