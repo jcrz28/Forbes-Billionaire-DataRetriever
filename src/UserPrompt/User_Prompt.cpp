@@ -1,8 +1,4 @@
 #include "User_Prompt.h"
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
 
 void Prompt::all_fields() {
 	std::cout << "\na - Name\n";

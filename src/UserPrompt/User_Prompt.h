@@ -3,7 +3,9 @@
 #define USERPROMPT
 
 #include "../LinkedList/LinkedList.h"
+#include <string>
 #include <iostream>
+#include <fstream>
 
 class Prompt: public LinkedList {
 public:

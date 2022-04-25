@@ -3,6 +3,9 @@
 #define LINKEDLIST_IMPLEMENTATIONS
 
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <algorithm>
 
 struct node {
 	std::string name, country, source, ranking, industry, age, networth;

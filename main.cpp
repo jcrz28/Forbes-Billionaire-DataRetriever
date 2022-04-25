@@ -1,6 +1,4 @@
 #include "src/UserPrompt/User_Prompt.h"
-#include <iostream>
-#include <fstream>
 
 int main() {
 	std::string input_file = "src/inputFiles/input1.txt";
