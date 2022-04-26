@@ -74,21 +74,16 @@ bool Prompt::validOptions(char option){
 }
 
 void Prompt::get_input_data(std::string task, char option) {
-	if (validOptions(option)){
+	
 		
-		std::string input_data;
-		std::string field = char_option_to_str_field(option);
+	std::string input_data;
+	std::string field = char_option_to_str_field(option);
 
-		std::cout << "Enter the " << field << " you want to " << task << ":";
-		std::cin.ignore();
-		std::getline(std::cin, input_data);
-		
-		if (task == "delete"){
-			return deleteData(field, input_data);
-		}
-		return filterData(field, input_data);
-	}
-	return invalid_input_message();
+	std::cout << "Enter the " << field << " you want to " << task << ":";
+	std::cin.ignore();
+	std::getline(std::cin, input_data);
+	
+	return task == "delete" ? deleteData(field, input_data) : filterData(field, input_data);
 }
 
 void Prompt::load_entries(std::ifstream& inputFile){
@@ -171,7 +166,7 @@ void Prompt::delete_entries() {
 	all_fields();
 
 	std::cin >> option;
-	return get_input_data(task, option);
+	return validOptions(option) ? get_input_data(task, option) : invalid_input_message();
 }
 
 void Prompt::search_entries() {
@@ -182,7 +177,7 @@ void Prompt::search_entries() {
 	all_fields();
 
 	std::cin >> option;
-	return get_input_data(task, option);
+	return validOptions(option) ? get_input_data(task, option) : invalid_input_message();
 }
 
 void Prompt::sort_entries() {
@@ -202,11 +197,7 @@ void Prompt::sort_entries() {
 		std::cout << "\nb - Descending order\n";
 
 		std::cin >> option;
-
-		if (option == 'a' || option == 'b'){
-			return sort(field, option);
-		}
-		return invalid_input_message();
+		return (option == 'a' || option == 'b')? sort(field, option) : invalid_input_message();
 	}
 	return invalid_input_message();
 }

@@ -139,19 +139,15 @@ bool LinkedList::checkStrings(node* current, std::string field, std::string inpu
 	transform(s1.begin(), s1.end(), s1.begin(), ::toupper);
 	transform(s2.begin(), s2.end(), s2.begin(), ::toupper);
 
-	if (s1 == s2) {
-		return true;
-	}
-	return false;
+	return s1 == s2;
 }
 
 /*REMOVE FUNCTIONS*/
 
 
 void LinkedList::checkFlag(bool flag) {
-	if (!flag){ std::cout << "Sorry, the data is non existent.\n\n"; }
-
-	else{ std::cout << "Entries are successfully deleted.\n\n"; }
+	!flag ? std::cout << "Sorry, the data is non existent.\n\n": 
+			std::cout << "Entries are successfully deleted.\n\n";
 }
 
 void LinkedList::deleteData(std::string field, std::string input_data) {
@@ -192,9 +188,8 @@ void LinkedList::deleteData(std::string field, std::string input_data) {
 
 
 void LinkedList::checkFlag(bool flag, int counter) {
-	if (!flag) {std::cout << "Sorry, but the data you are searching for does not exist.\n\n"; }
-
-	else { std::cout << "The data you are searching for have " << counter << " entries.\n\n"; }
+	!flag ? std::cout << "Sorry, but the data you are searching for does not exist.\n\n":
+	 		std::cout << "The data you are searching for have " << counter << " entries.\n\n"; 
 }
 
 void LinkedList::filterData(std::string field, std::string input_data) {
