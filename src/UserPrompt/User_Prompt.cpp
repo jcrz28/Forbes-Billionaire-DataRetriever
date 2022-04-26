@@ -74,8 +74,6 @@ bool Prompt::validOptions(char option){
 }
 
 void Prompt::get_input_data(std::string task, char option) {
-	
-		
 	std::string input_data;
 	std::string field = char_option_to_str_field(option);
 
