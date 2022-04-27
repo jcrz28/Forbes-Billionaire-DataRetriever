@@ -25,6 +25,8 @@ bool LinkedList::checkUnique(std::string name, std::string country, std::string 
 		if ((current->name == name) && (current->country == country) &&
 			(current->source == source) && (current->industry == industry)) {
 
+			std::cout << "INVALID: DATA ALREADY EXISTS\n\n";
+
 			return false;
 		}
 		current = current->next;
@@ -57,13 +59,9 @@ node* LinkedList::setData(std::string name, std::string networth, std::string co
 void LinkedList::insertData(std::string name, std::string networth, std::string country,
 	std::string source, std::string rank, std::string age, std::string industry, int position) {
 
+	if (!checkUnique(name, country, source, industry)){ return; }
+	
 	node* current = head;
-
-	bool check = checkUnique(name, country, source, industry);
-	if (!check) {
-		std::cout << "INVALID: DATA ALREADY EXISTS\n\n";
-		return;
-	}
 	node* data = setData(name, networth, country, source, rank, age, industry);
 
 	if (current == NULL) {
