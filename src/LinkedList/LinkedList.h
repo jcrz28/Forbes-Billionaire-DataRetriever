@@ -31,9 +31,6 @@ public:
 	node* setData(std::string name, std::string networth, std::string country,
 		std::string source, std::string rank, std::string age, std::string industry);
 
-	void appendData(std::string name, std::string networth, std::string country,
-		std::string source, std::string rank, std::string age, std::string industry);
-
 	void insertData(std::string name, std::string networth, std::string country,
 		std::string source, std::string rank, std::string age, std::string industry, int position);
 

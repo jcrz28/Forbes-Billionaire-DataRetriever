@@ -54,33 +54,6 @@ node* LinkedList::setData(std::string name, std::string networth, std::string co
 	return data;
 }
 
-void LinkedList::appendData(std::string name, std::string networth, std::string country,
-	std::string source, std::string rank, std::string age, std::string industry) {
-
-	node* current = head;
-	bool check = checkUnique(name, country, source, industry);
-
-	if (!check) {
-		std::cout << "INVALID: DATA ALREADY EXISTS\n\n";
-		return;
-	}
-	
-	node* data = setData(name, networth, country, source, rank, age, industry);
-	data->next = NULL;
-
-	if (current == NULL) {
-		head = data;
-		size++;
-		return;
-	}
-	
-	while (current->next != NULL) {
-		current = current->next;
-	}
-	current->next = data;
-	size++;
-}
-
 void LinkedList::insertData(std::string name, std::string networth, std::string country,
 	std::string source, std::string rank, std::string age, std::string industry, int position) {
 
@@ -93,7 +66,14 @@ void LinkedList::insertData(std::string name, std::string networth, std::string 
 	}
 	node* data = setData(name, networth, country, source, rank, age, industry);
 
-	if (position <= 0) {
+	if (current == NULL) {
+		data->next = NULL;
+		head = data;
+		size++;
+		return;
+	}
+
+	if (position < 0) {
 		data->next = head;
 		head = data;
 		size++;
@@ -101,7 +81,14 @@ void LinkedList::insertData(std::string name, std::string networth, std::string 
 	}
 	
 	if (position >= size) {
-		return appendData(name, networth, country, source, rank, age, industry);
+		data->next = NULL;
+
+		while (current->next != NULL) {
+			current = current->next;
+		}
+		current->next = data;
+		size++;
+		return;
 	}
 	
 	for (int i = 0; i < position - 1; i++) {
@@ -110,6 +97,7 @@ void LinkedList::insertData(std::string name, std::string networth, std::string 
 	data->next = current->next;
 	current->next = data;
 	size++;
+	return;
 }
 
 /*Checks the field and returns the data from the linked list.*/

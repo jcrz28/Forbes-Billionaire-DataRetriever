@@ -86,7 +86,8 @@ void Prompt::get_input_data(std::string task, char option) {
 
 void Prompt::load_entries(std::ifstream& inputFile){
 	std::string name, networth, country, source, age, rank, industry, ignore;
-
+	int pos = 0;
+	
 	while (!inputFile.eof()) {
 		getline(inputFile, name, '\t');
 
@@ -113,7 +114,8 @@ void Prompt::load_entries(std::ifstream& inputFile){
 
 		getline(inputFile, industry, '\n');
 
-		appendData(name, networth, country, source, rank, age, industry);
+		insertData(name, networth, country, source, rank, age, industry, pos);
+		pos++;
 	}
 }
 
