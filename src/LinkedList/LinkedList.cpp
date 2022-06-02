@@ -5,28 +5,20 @@ LinkedList::LinkedList() {
 	size = 0;
 }
 
-
-/*ADD FUNCTIONS*/
-
-
 bool LinkedList::checkEmpty() {
 	if (head == NULL) {
 		std::cout << "\nThe database has currently no entries.\n\n";
 		return true;
-	}
-	return false;
+	}return false;
 }
 
 bool LinkedList::checkUnique(std::string name, std::string country, std::string source, std::string industry) {
 	node* current = head;
-
 	while (current != NULL) {
 
 		if ((current->name == name) && (current->country == country) &&
 			(current->source == source) && (current->industry == industry)) {
-
 			std::cout << "INVALID: DATA ALREADY EXISTS\n\n";
-
 			return false;
 		}
 		current = current->next;
@@ -101,35 +93,32 @@ void LinkedList::insertData(std::string name, std::string networth, std::string 
 /*Checks the field and returns the data from the linked list.*/
 
 std::string LinkedList::getData(node* current, std::string field){
-	if (field == "name") {return current->name;}
-
-	if (field == "country") {return current->country;}
-
-	if (field == "source") {return current->source;}
-
-	if (field ==  "industry") {return current->industry;}
-
-	if (field == "networth") {return current->networth;}
-
-	if (field == "rank") {return current->ranking;}
-	
-	if (field == "age") {return current->age;}
+	if (field == "name")
+		return current->name;
+	else if (field == "country")
+		return current->country;
+	else if (field == "source")
+		return current->source;
+	else if (field ==  "industry")
+		return current->industry;
+	else if (field == "networth")
+		return current->networth;
+	else if (field == "rank")
+		return current->ranking;
+	else if (field == "age")
+		return current->age;
 }
 
 /*Checks the field and performs case insensitivity match*/
 bool LinkedList::checkStrings(node* current, std::string field, std::string input_data) {
-	
 	std::string s1 = getData(current, field);
 	std::string s2 = input_data;
 
 	transform(s1.begin(), s1.end(), s1.begin(), ::toupper);
 	transform(s2.begin(), s2.end(), s2.begin(), ::toupper);
-
+	
 	return s1 == s2;
 }
-
-/*REMOVE FUNCTIONS*/
-
 
 void LinkedList::checkFlag(bool flag) {
 	!flag ? std::cout << "Sorry, the data is non existent.\n\n": 
@@ -147,16 +136,13 @@ void LinkedList::deleteData(std::string field, std::string input_data) {
 			current = head = head->next;
 			size--;
 			flag = true;
-		}
-		else if (checkStrings(current->next, field, input_data)){
+		}else if (checkStrings(current->next, field, input_data)){
 			current->next = current->next->next;
 			size--;
 			flag = true;
-		}
-		else {
+		}else {
 			current = current->next;
 		}
-
 		if (field == "name" && flag) { break; }
 	}
 
@@ -165,13 +151,9 @@ void LinkedList::deleteData(std::string field, std::string input_data) {
 		size--;
 		flag = true;
 	}
-	
+
 	checkFlag(flag);
 }
-
-
-/*SEARCH FUNCTIONS*/
-
 
 void LinkedList::checkFlag(bool flag, int counter) {
 	!flag ? std::cout << "Sorry, but the data you are searching for does not exist.\n\n":
@@ -189,12 +171,9 @@ void LinkedList::filterData(std::string field, std::string input_data) {
 			counter++;
 			text(current);
 		}
-
 		if (field == "name" && flag) { break; }
-
 		current = current->next;
 	}	
-
 	checkFlag(flag, counter);
 }
 
@@ -206,36 +185,44 @@ void LinkedList::text(node* current) {
 
 void LinkedList::swap_nodes(node* current) {
 	swap(current->name, current->next->name);
-
 	swap(current->networth, current->next->networth);
-
 	swap(current->country, current->next->country);
-
 	swap(current->source, current->next->source);
-
 	swap(current->ranking, current->next->ranking);
-
 	swap(current->age, current->next->age);
-
 	swap(current->industry, current->next->industry);
 }
 
-void LinkedList::sort(std::string field, char option) {
-	//option a == increasing
-	//option b == decreasing
-	
+void LinkedList::checkNeighbor(node* current, double curr, double next, char option){
+	if (option == 'a' && curr > next) {
+		swap_nodes(current);
+	}else if (option == 'b' && curr < next){
+		swap_nodes(current);
+	}
+}
+
+void LinkedList::checkNeighbor(node* current, std::string curr, std::string next, char option){
+	if (option == 'a' && curr > next) {
+		swap_nodes(current);
+	}else if (option == 'b' && curr < next){
+		swap_nodes(current);
+	}
+}
+
+void LinkedList::bubbleSort(std::string field, char option) {
+	std::string curr, next;
+
 	for (int i = 0; i < size - 1; i++) {
 		node* current = head;
 
 		for (int j = 0; j < size - 1 - i; j++) {
-			double num1 = stod(getData(current, field));
-			double num2 = stod(getData(current->next, field));
+			curr = getData(current, field);
+			next = getData(current->next, field);
 
-			if (option == 'a' && num1 > num2) {
-				swap_nodes(current);
-			}
-			else if (option == 'b' && num1 < num2){
-				swap_nodes(current);
+			if (field == "networth" || field == "rank" || field =="age") {
+				checkNeighbor(current, stod(curr), stod(next), option);
+			}else{
+				checkNeighbor(current, curr, next, option);
 			}
 			current = current->next;
 		}

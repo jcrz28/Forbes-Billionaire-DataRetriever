@@ -59,10 +59,11 @@ public:
 
 	/*SORT FUNCTIONS*/
 
-	void swap_nodes(node* current);
+	void bubbleSort(std::string field, char task);
+	void checkNeighbor(node* current, double curr, double next, char option);
+	void checkNeighbor(node* current, std::string curr, std::string next, char option);
 
-	void sort(std::string field, char task);
-	
+	void swap_nodes(node* current);
 
 	/*PRINT FUNCTIONS*/
 
