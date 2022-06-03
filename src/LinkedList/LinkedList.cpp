@@ -183,7 +183,7 @@ void LinkedList::text(node* current) {
 		" RANK:" << current->ranking << " Age:" << current->age << " Industry:" << current->industry << "\n\n";
 }
 
-void LinkedList::swap_nodes(node* current) {
+void LinkedList::swapNodes(node* current) {
 	swap(current->name, current->next->name);
 	swap(current->networth, current->next->networth);
 	swap(current->country, current->next->country);
@@ -195,17 +195,17 @@ void LinkedList::swap_nodes(node* current) {
 
 void LinkedList::checkNeighbor(node* current, double curr, double next, char option){
 	if (option == 'a' && curr > next) {
-		swap_nodes(current);
+		swapNodes(current);
 	}else if (option == 'b' && curr < next){
-		swap_nodes(current);
+		swapNodes(current);
 	}
 }
 
 void LinkedList::checkNeighbor(node* current, std::string curr, std::string next, char option){
 	if (option == 'a' && curr > next) {
-		swap_nodes(current);
+		swapNodes(current);
 	}else if (option == 'b' && curr < next){
-		swap_nodes(current);
+		swapNodes(current);
 	}
 }
 

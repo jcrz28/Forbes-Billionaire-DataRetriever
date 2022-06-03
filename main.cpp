@@ -6,7 +6,7 @@ int main() {
 
 	Prompt user_prompt;
 
-	user_prompt.load_entries(inputFile);
+	user_prompt.loadEntries(inputFile);
 	char option;
 
 	do {
@@ -23,31 +23,31 @@ int main() {
 		switch (option) {
 
 		case '1':
-			user_prompt.print_entries();
+			user_prompt.printEntries();
 			break;
 
 		case '2':
-			user_prompt.add_entries();
+			user_prompt.addEntries();
 			break;
 
 		case '3':
-			user_prompt.delete_entries();
+			user_prompt.deleteEntries();
 			break;
 
 		case '4':
-			user_prompt.search_entries();
+			user_prompt.searchEntries();
 			break;
 
 		case '5':
-			user_prompt.sort_entries();
+			user_prompt.sortEntries();
 			break;
 
 		case '6':
-			user_prompt.exit_message();
+			user_prompt.exitMessage();
 			break;
 
 		default:
-			user_prompt.invalid_input_message();
+			user_prompt.invalidMessage();
 			break;
 		}
 

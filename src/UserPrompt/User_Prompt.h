@@ -9,37 +9,32 @@
 
 class Prompt: public LinkedList {
 public:
+	void fields();
 
-	/*Shows the fields of the database*/
-	void all_fields();
-
-	/*Char options to a string field category.*/
-
-	std::string convertOptionField(char option);
-
-	void get_input_data(std::string task, char option);
+	std::string toField(char option);
+	
 	void chooseOrder(char option);
 
 	bool validOptions(char option);
 
-	void invalid_input_message();
+	void invalidMessage();
 	
 
-	void load_entries(std::ifstream& inputFile);
+	void loadEntries(std::ifstream& inputFile);
 
 	/*Main user options*/
 	
-	void print_entries();
+	void printEntries();
 
-	void add_entries();
+	void addEntries();
 
-	void delete_entries();
+	void deleteEntries();
 
-	void search_entries();
+	void searchEntries();
 
-	void sort_entries();
+	void sortEntries();
 
-	void exit_message();
+	void exitMessage();
 
 };
 #endif // !USERPROMPT

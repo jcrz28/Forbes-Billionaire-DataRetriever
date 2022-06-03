@@ -1,66 +1,42 @@
 #include "User_Prompt.h"
 
-void Prompt::all_fields() {
+void Prompt::fields() {
 	std::cout << "\na - Name\n";
-
 	std::cout << "\nb - Networth\n";
-
 	std::cout << "\nc - Country\n";
-
 	std::cout << "\nd - Source\n";
-
 	std::cout << "\ne - Rank\n";
-
 	std::cout << "\nf - Age\n";
-
 	std::cout << "\ng - Industry\n";
 }
 
-std::string Prompt::convertOptionField(char option) {
+std::string Prompt::toField(char option) {
 	switch (option){
 	case 'a':
 		return "name";
-	
 	case 'b':
 		return "networth";
-
 	case 'c':
-		return "country";
-	
+		return "country";	
 	case 'd':
 		return "source";
-
 	case 'e':
-		return "rank";
-	
+		return "rank";	
 	case 'f':
 		return "age";
-
 	case 'g':
-		return "industry";
-	
+		return "industry";	
 	default:
 		return "";
 	}
-	
 }
 
 bool Prompt::validOptions(char option){
-	return (option == 'a' || option == 'b' || option == 'c' || option == 'd' || option == 'e' || option == 'f' || option == 'g');
+	return (option == 'a' || option == 'b' || option == 'c' || option == 'd' || 
+			option == 'e' || option == 'f' || option == 'g');
 }
 
-void Prompt::get_input_data(std::string task, char option) {
-	std::string input_data;
-	std::string field = convertOptionField(option);
-
-	std::cout << "Enter the " << field << " you want to " << task << ":";
-	std::cin.ignore();
-	std::getline(std::cin, input_data);
-	
-	return task == "delete" ? deleteData(field, input_data) : filterData(field, input_data);
-}
-
-void Prompt::load_entries(std::ifstream& inputFile){
+void Prompt::loadEntries(std::ifstream& inputFile){
 	std::string name, networth, country, source, age, rank, industry, ignore;
 	int pos = 0;
 	
@@ -77,13 +53,10 @@ void Prompt::load_entries(std::ifstream& inputFile){
 
 		//removes $ sign, 'B', and leading space
 		networth = networth.substr(1, networth.length()-3);
-		
+	
 		getline(inputFile, country, '\t');
-
 		getline(inputFile, source, '\t');
-
 		getline(inputFile, rank, '\t');
-
 		getline(inputFile, age, '\t');
 
 		if (age == "N/A") continue;
@@ -93,13 +66,14 @@ void Prompt::load_entries(std::ifstream& inputFile){
 		insertData(name, networth, country, source, rank, age, industry, pos);
 		pos++;
 	}
+	return;
 }
 
-void Prompt::print_entries() {
-	print();
+void Prompt::printEntries() {
+	return print();
 }
 
-void Prompt::add_entries() {
+void Prompt::addEntries() {
 	std::string name, country, source, industry, rank, age, networth;
 	int position;
 
@@ -131,55 +105,74 @@ void Prompt::add_entries() {
 	std::getline(std::cin, industry);
 	std::cout << '\n';
 
-	insertData(name, networth, country, source, rank, age, industry, position);
+	return insertData(name, networth, country, source, rank, age, industry, position);
 }
 
-void Prompt::delete_entries() {
+void Prompt::deleteEntries() {
 	char option;
+	std::string input_data;
 
 	std::cout << "Select a field to delete:\n";
-	all_fields();
+	fields();
 
 	std::cin >> option;
-	return validOptions(option) ? get_input_data("delete", option) : invalid_input_message();
+
+	if (validOptions(option)){
+		std::string field = toField(option);
+
+		std::cout << "Enter the " << field << " you want to delete:";
+		std::cin.ignore();
+		std::getline(std::cin, input_data);
+
+		return deleteData(field, input_data);
+	}
+	return invalidMessage();
 }
 
-void Prompt::search_entries() {
+void Prompt::searchEntries() {
 	char option;
+	std::string input_data;
 
 	std::cout << "Select a field to search:\n";
-	all_fields();
+	fields();
 
 	std::cin >> option;
-	return validOptions(option) ? get_input_data("search", option) : invalid_input_message();
+
+	if (validOptions(option)){
+		std::string field = toField(option);
+
+		std::cout << "Enter the " << field << " you want to search:";
+		std::cin.ignore();
+		std::getline(std::cin, input_data);
+
+		return filterData(field, input_data);
+	}
+	return invalidMessage();
 }
 
 void Prompt::chooseOrder (char option) {
-	std::string field = convertOptionField(option);
 	std::cout << "Select the sorting order:\n";
-
 	std::cout << "\na - Ascending order\n";
-
 	std::cout << "\nb - Descending order\n";
 
 	std::cin >> option;
-	return (option == 'a' || option == 'b')? bubbleSort(field, option) : invalid_input_message();
+	return (option == 'a' || option == 'b')? bubbleSort(toField(option), option) : invalidMessage();
 }
 
-void Prompt::sort_entries() {
+void Prompt::sortEntries() {
 	char option;
 
 	std::cout << "Select a field to sort:\n";
-	all_fields();
+	fields();
 
 	std::cin >> option;
-	return validOptions(option)? chooseOrder(option) : invalid_input_message();
+	return validOptions(option)? chooseOrder(option) : invalidMessage();
 }
 
-void Prompt::invalid_input_message() {
+void Prompt::invalidMessage() {
 	std::cout << "\nSorry invalid option. Please try again.\n\n";
 }
 
-void Prompt::exit_message() {
+void Prompt::exitMessage() {
 	std::cout << "\nThank you, goodbye.\n";
 }
